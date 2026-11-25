@@ -1,0 +1,390 @@
+{
+  "num_classes": 38,
+  "mapped_kb_cards_count": 6,
+  "classes": [
+    {
+      "index": 0,
+      "label": "apple_scab",
+      "hf_label": "Apple Scab",
+      "kb_card_id": null,
+      "crop": "apple",
+      "condition_name": "Scab",
+      "category": "disease"
+    },
+    {
+      "index": 1,
+      "label": "apple_with_black_rot",
+      "hf_label": "Apple with Black Rot",
+      "kb_card_id": null,
+      "crop": "apple",
+      "condition_name": "Black Rot",
+      "category": "disease"
+    },
+    {
+      "index": 2,
+      "label": "cedar_apple_rust",
+      "hf_label": "Cedar Apple Rust",
+      "kb_card_id": null,
+      "crop": "apple",
+      "condition_name": "Cedar Apple Rust",
+      "category": "disease"
+    },
+    {
+      "index": 3,
+      "label": "healthy_apple",
+      "hf_label": "Healthy Apple",
+      "kb_card_id": null,
+      "crop": "apple",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 4,
+      "label": "healthy_blueberry_plant",
+      "hf_label": "Healthy Blueberry Plant",
+      "kb_card_id": null,
+      "crop": "blueberry",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 5,
+      "label": "cherry_with_powdery_mildew",
+      "hf_label": "Cherry with Powdery Mildew",
+      "kb_card_id": null,
+      "crop": "cherry",
+      "condition_name": "Powdery Mildew",
+      "category": "disease"
+    },
+    {
+      "index": 6,
+      "label": "healthy_cherry_plant",
+      "hf_label": "Healthy Cherry Plant",
+      "kb_card_id": null,
+      "crop": "cherry",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 7,
+      "label": "corn_maize_with_cercospora_and_gray_leaf_spot",
+      "hf_label": "Corn (Maize) with Cercospora and Gray Leaf Spot",
+      "kb_card_id": null,
+      "crop": "maize",
+      "condition_name": "Cercospora and Gray Leaf Spot",
+      "category": "disease"
+    },
+    {
+      "index": 8,
+      "label": "corn_maize_with_common_rust",
+      "hf_label": "Corn (Maize) with Common Rust",
+      "kb_card_id": null,
+      "crop": "maize",
+      "condition_name": "Common Rust",
+      "category": "disease"
+    },
+    {
+      "index": 9,
+      "label": "maize_northern_leaf_blight",
+      "hf_label": "Corn (Maize) with Northern Leaf Blight",
+      "kb_card_id": "maize_northern_leaf_blight",
+      "crop": "maize",
+      "condition_name": "Maize Northern Corn Leaf Blight",
+      "category": "disease"
+    },
+    {
+      "index": 10,
+      "label": "healthy_corn_maize_plant",
+      "hf_label": "Healthy Corn (Maize) Plant",
+      "kb_card_id": null,
+      "crop": "maize",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 11,
+      "label": "grape_with_black_rot",
+      "hf_label": "Grape with Black Rot",
+      "kb_card_id": null,
+      "crop": "grape",
+      "condition_name": "Black Rot",
+      "category": "disease"
+    },
+    {
+      "index": 12,
+      "label": "grape_with_esca_black_measles",
+      "hf_label": "Grape with Esca (Black Measles)",
+      "kb_card_id": null,
+      "crop": "grape",
+      "condition_name": "Esca (Black Measles)",
+      "category": "disease"
+    },
+    {
+      "index": 13,
+      "label": "grape_with_isariopsis_leaf_spot",
+      "hf_label": "Grape with Isariopsis Leaf Spot",
+      "kb_card_id": null,
+      "crop": "grape",
+      "condition_name": "Isariopsis Leaf Spot",
+      "category": "disease"
+    },
+    {
+      "index": 14,
+      "label": "healthy_grape_plant",
+      "hf_label": "Healthy Grape Plant",
+      "kb_card_id": null,
+      "crop": "grape",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 15,
+      "label": "orange_with_citrus_greening",
+      "hf_label": "Orange with Citrus Greening",
+      "kb_card_id": null,
+      "crop": "orange",
+      "condition_name": "Citrus Greening",
+      "category": "disease"
+    },
+    {
+      "index": 16,
+      "label": "peach_with_bacterial_spot",
+      "hf_label": "Peach with Bacterial Spot",
+      "kb_card_id": null,
+      "crop": "peach",
+      "condition_name": "Bacterial Spot",
+      "category": "disease"
+    },
+    {
+      "index": 17,
+      "label": "healthy_peach_plant",
+      "hf_label": "Healthy Peach Plant",
+      "kb_card_id": null,
+      "crop": "peach",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 18,
+      "label": "bell_pepper_with_bacterial_spot",
+      "hf_label": "Bell Pepper with Bacterial Spot",
+      "kb_card_id": null,
+      "crop": "bell pepper",
+      "condition_name": "Bacterial Spot",
+      "category": "disease"
+    },
+    {
+      "index": 19,
+      "label": "healthy_bell_pepper_plant",
+      "hf_label": "Healthy Bell Pepper Plant",
+      "kb_card_id": null,
+      "crop": "bell pepper",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 20,
+      "label": "potato_early_blight",
+      "hf_label": "Potato with Early Blight",
+      "kb_card_id": "potato_early_blight",
+      "crop": "potato",
+      "condition_name": "Potato Early Blight",
+      "category": "disease"
+    },
+    {
+      "index": 21,
+      "label": "potato_late_blight",
+      "hf_label": "Potato with Late Blight",
+      "kb_card_id": "potato_late_blight",
+      "crop": "potato",
+      "condition_name": "Potato Late Blight",
+      "category": "disease"
+    },
+    {
+      "index": 22,
+      "label": "healthy_potato_plant",
+      "hf_label": "Healthy Potato Plant",
+      "kb_card_id": null,
+      "crop": "potato",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 23,
+      "label": "healthy_raspberry_plant",
+      "hf_label": "Healthy Raspberry Plant",
+      "kb_card_id": null,
+      "crop": "raspberry",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 24,
+      "label": "healthy_soybean_plant",
+      "hf_label": "Healthy Soybean Plant",
+      "kb_card_id": null,
+      "crop": "soybean",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 25,
+      "label": "squash_with_powdery_mildew",
+      "hf_label": "Squash with Powdery Mildew",
+      "kb_card_id": null,
+      "crop": "squash",
+      "condition_name": "Powdery Mildew",
+      "category": "disease"
+    },
+    {
+      "index": 26,
+      "label": "strawberry_with_leaf_scorch",
+      "hf_label": "Strawberry with Leaf Scorch",
+      "kb_card_id": null,
+      "crop": "strawberry",
+      "condition_name": "Leaf Scorch",
+      "category": "disease"
+    },
+    {
+      "index": 27,
+      "label": "healthy_strawberry_plant",
+      "hf_label": "Healthy Strawberry Plant",
+      "kb_card_id": null,
+      "crop": "strawberry",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    },
+    {
+      "index": 28,
+      "label": "tomato_with_bacterial_spot",
+      "hf_label": "Tomato with Bacterial Spot",
+      "kb_card_id": null,
+      "crop": "tomato",
+      "condition_name": "Bacterial Spot",
+      "category": "disease"
+    },
+    {
+      "index": 29,
+      "label": "tomato_early_blight",
+      "hf_label": "Tomato with Early Blight",
+      "kb_card_id": "tomato_early_blight",
+      "crop": "tomato",
+      "condition_name": "Tomato Early Blight",
+      "category": "disease"
+    },
+    {
+      "index": 30,
+      "label": "tomato_late_blight",
+      "hf_label": "Tomato with Late Blight",
+      "kb_card_id": "tomato_late_blight",
+      "crop": "tomato",
+      "condition_name": "Tomato Late Blight",
+      "category": "disease"
+    },
+    {
+      "index": 31,
+      "label": "tomato_with_leaf_mold",
+      "hf_label": "Tomato with Leaf Mold",
+      "kb_card_id": null,
+      "crop": "tomato",
+      "condition_name": "Leaf Mold",
+      "category": "disease"
+    },
+    {
+      "index": 32,
+      "label": "tomato_with_septoria_leaf_spot",
+      "hf_label": "Tomato with Septoria Leaf Spot",
+      "kb_card_id": null,
+      "crop": "tomato",
+      "condition_name": "Septoria Leaf Spot",
+      "category": "disease"
+    },
+    {
+      "index": 33,
+      "label": "tomato_with_spider_mites_or_two_spotted_spider_mite",
+      "hf_label": "Tomato with Spider Mites or Two-spotted Spider Mite",
+      "kb_card_id": null,
+      "crop": "tomato",
+      "condition_name": "Spider Mites or Two spotted Spider Mite",
+      "category": "pest"
+    },
+    {
+      "index": 34,
+      "label": "tomato_with_target_spot",
+      "hf_label": "Tomato with Target Spot",
+      "kb_card_id": null,
+      "crop": "tomato",
+      "condition_name": "Target Spot",
+      "category": "disease"
+    },
+    {
+      "index": 35,
+      "label": "tomato_yellow_leaf_curl_virus",
+      "hf_label": "Tomato Yellow Leaf Curl Virus",
+      "kb_card_id": "tomato_yellow_leaf_curl_virus",
+      "crop": "tomato",
+      "condition_name": "Tomato Yellow Leaf Curl Virus",
+      "category": "disease"
+    },
+    {
+      "index": 36,
+      "label": "tomato_mosaic_virus",
+      "hf_label": "Tomato Mosaic Virus",
+      "kb_card_id": null,
+      "crop": "tomato",
+      "condition_name": "Mosaic Virus",
+      "category": "disease"
+    },
+    {
+      "index": 37,
+      "label": "healthy_tomato_plant",
+      "hf_label": "Healthy Tomato Plant",
+      "kb_card_id": null,
+      "crop": "tomato",
+      "condition_name": "Healthy",
+      "category": "healthy"
+    }
+  ],
+  "index_to_label": {
+    "0": "apple_scab",
+    "1": "apple_with_black_rot",
+    "2": "cedar_apple_rust",
+    "3": "healthy_apple",
+    "4": "healthy_blueberry_plant",
+    "5": "cherry_with_powdery_mildew",
+    "6": "healthy_cherry_plant",
+    "7": "corn_maize_with_cercospora_and_gray_leaf_spot",
+    "8": "corn_maize_with_common_rust",
+    "9": "maize_northern_leaf_blight",
+    "10": "healthy_corn_maize_plant",
+    "11": "grape_with_black_rot",
+    "12": "grape_with_esca_black_measles",
+    "13": "grape_with_isariopsis_leaf_spot",
+    "14": "healthy_grape_plant",
+    "15": "orange_with_citrus_greening",
+    "16": "peach_with_bacterial_spot",
+    "17": "healthy_peach_plant",
+    "18": "bell_pepper_with_bacterial_spot",
+    "19": "healthy_bell_pepper_plant",
+    "20": "potato_early_blight",
+    "21": "potato_late_blight",
+    "22": "healthy_potato_plant",
+    "23": "healthy_raspberry_plant",
+    "24": "healthy_soybean_plant",
+    "25": "squash_with_powdery_mildew",
+    "26": "strawberry_with_leaf_scorch",
+    "27": "healthy_strawberry_plant",
+    "28": "tomato_with_bacterial_spot",
+    "29": "tomato_early_blight",
+    "30": "tomato_late_blight",
+    "31": "tomato_with_leaf_mold",
+    "32": "tomato_with_septoria_leaf_spot",
+    "33": "tomato_with_spider_mites_or_two_spotted_spider_mite",
+    "34": "tomato_with_target_spot",
+    "35": "tomato_yellow_leaf_curl_virus",
+    "36": "tomato_mosaic_virus",
+    "37": "healthy_tomato_plant"
+  },
+  "source_repo_id": "linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification",
+  "pt2_exported": true
+}

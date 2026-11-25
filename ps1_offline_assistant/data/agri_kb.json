@@ -1,0 +1,1635 @@
+{
+  "kb_schema_version": "1.0.0",
+  "provenance": {
+    "crop_database_source": "model/cropDatabase.js",
+    "crop_database_sha256": "690107a341ba62fa3a13ada87995a9835851898516f3c6cdb52cfb50eec6d269",
+    "fertilizer_database_source": "model/fertilizerDatabase.js",
+    "fertilizer_database_sha256": "50e3c289690e2a53ac7b2e6b48b73a8589f5e00e12afcda159930a89181225f2",
+    "fertilizer_safety_policy": "Baseline FieldWise Package of Practices reference only. Physical commercial fertilizer bag quantities require a verified laboratory Soil Health Card (SHC) test.",
+    "agronomic_alignment": "ICAR / DPPQS / CIB&RC IPM Offline Reference (Zero-Cloud)"
+  },
+  "crops": [
+    {
+      "id": "rice",
+      "name": "Rice",
+      "season": "Kharif",
+      "minRainfall": 150,
+      "maxRainfall": 300,
+      "minTemperature": 20,
+      "maxTemperature": 35,
+      "minHumidity": 70,
+      "maxHumidity": 95,
+      "soilTypes": [
+        "Clay",
+        "Alluvial",
+        "Loamy"
+      ],
+      "nitrogenRange": [
+        80,
+        120
+      ],
+      "phosphorusRange": [
+        40,
+        60
+      ],
+      "potassiumRange": [
+        40,
+        60
+      ],
+      "phRange": [
+        5.5,
+        7
+      ],
+      "yieldPerHectare": 4.5,
+      "icon": "🌾",
+      "description": "Major Kharif staple crop, requires high water availability"
+    },
+    {
+      "id": "wheat",
+      "name": "Wheat",
+      "season": "Rabi",
+      "minRainfall": 50,
+      "maxRainfall": 100,
+      "minTemperature": 10,
+      "maxTemperature": 25,
+      "minHumidity": 40,
+      "maxHumidity": 70,
+      "soilTypes": [
+        "Loamy",
+        "Clay Loam",
+        "Sandy Loam"
+      ],
+      "nitrogenRange": [
+        100,
+        150
+      ],
+      "phosphorusRange": [
+        50,
+        80
+      ],
+      "potassiumRange": [
+        40,
+        60
+      ],
+      "phRange": [
+        6,
+        7.5
+      ],
+      "yieldPerHectare": 3.5,
+      "icon": "🌿",
+      "description": "Primary Rabi crop, major food grain of North India"
+    },
+    {
+      "id": "maize",
+      "name": "Maize",
+      "season": "Kharif",
+      "minRainfall": 80,
+      "maxRainfall": 150,
+      "minTemperature": 18,
+      "maxTemperature": 32,
+      "minHumidity": 50,
+      "maxHumidity": 80,
+      "soilTypes": [
+        "Sandy Loam",
+        "Loamy",
+        "Alluvial"
+      ],
+      "nitrogenRange": [
+        120,
+        180
+      ],
+      "phosphorusRange": [
+        60,
+        80
+      ],
+      "potassiumRange": [
+        40,
+        60
+      ],
+      "phRange": [
+        5.5,
+        7.5
+      ],
+      "yieldPerHectare": 5,
+      "icon": "🌽",
+      "description": "Versatile cereal crop used for food, feed and industrial purposes"
+    },
+    {
+      "id": "cotton",
+      "name": "Cotton",
+      "season": "Kharif",
+      "minRainfall": 60,
+      "maxRainfall": 110,
+      "minTemperature": 21,
+      "maxTemperature": 35,
+      "minHumidity": 40,
+      "maxHumidity": 70,
+      "soilTypes": [
+        "Black",
+        "Alluvial",
+        "Red"
+      ],
+      "nitrogenRange": [
+        60,
+        100
+      ],
+      "phosphorusRange": [
+        30,
+        50
+      ],
+      "potassiumRange": [
+        30,
+        50
+      ],
+      "phRange": [
+        6,
+        8
+      ],
+      "yieldPerHectare": 2,
+      "icon": "🌱",
+      "description": "Major cash crop, the \"white gold\" of Indian agriculture"
+    },
+    {
+      "id": "sugarcane",
+      "name": "Sugarcane",
+      "season": "Kharif",
+      "minRainfall": 150,
+      "maxRainfall": 250,
+      "minTemperature": 20,
+      "maxTemperature": 35,
+      "minHumidity": 60,
+      "maxHumidity": 90,
+      "soilTypes": [
+        "Loamy",
+        "Clay Loam",
+        "Alluvial"
+      ],
+      "nitrogenRange": [
+        150,
+        250
+      ],
+      "phosphorusRange": [
+        60,
+        100
+      ],
+      "potassiumRange": [
+        80,
+        120
+      ],
+      "phRange": [
+        6,
+        7.5
+      ],
+      "yieldPerHectare": 80,
+      "icon": "🎋",
+      "description": "Primary source of sugar, requires warm and humid conditions"
+    },
+    {
+      "id": "soybean",
+      "name": "Soybean",
+      "season": "Kharif",
+      "minRainfall": 60,
+      "maxRainfall": 100,
+      "minTemperature": 20,
+      "maxTemperature": 30,
+      "minHumidity": 50,
+      "maxHumidity": 75,
+      "soilTypes": [
+        "Loamy",
+        "Black",
+        "Clay Loam"
+      ],
+      "nitrogenRange": [
+        20,
+        40
+      ],
+      "phosphorusRange": [
+        60,
+        80
+      ],
+      "potassiumRange": [
+        40,
+        60
+      ],
+      "phRange": [
+        6,
+        7
+      ],
+      "yieldPerHectare": 2.5,
+      "icon": "🫘",
+      "description": "Nitrogen-fixing legume, excellent protein source"
+    },
+    {
+      "id": "groundnut",
+      "name": "Groundnut",
+      "season": "Kharif",
+      "minRainfall": 50,
+      "maxRainfall": 100,
+      "minTemperature": 20,
+      "maxTemperature": 30,
+      "minHumidity": 45,
+      "maxHumidity": 70,
+      "soilTypes": [
+        "Sandy Loam",
+        "Red",
+        "Alluvial"
+      ],
+      "nitrogenRange": [
+        15,
+        25
+      ],
+      "phosphorusRange": [
+        40,
+        60
+      ],
+      "potassiumRange": [
+        30,
+        50
+      ],
+      "phRange": [
+        5.5,
+        7
+      ],
+      "yieldPerHectare": 2,
+      "icon": "🥜",
+      "description": "Oilseed crop, major source of edible oil and protein"
+    },
+    {
+      "id": "potato",
+      "name": "Potato",
+      "season": "Rabi",
+      "minRainfall": 40,
+      "maxRainfall": 80,
+      "minTemperature": 15,
+      "maxTemperature": 25,
+      "minHumidity": 55,
+      "maxHumidity": 80,
+      "soilTypes": [
+        "Sandy Loam",
+        "Loamy",
+        "Alluvial"
+      ],
+      "nitrogenRange": [
+        150,
+        200
+      ],
+      "phosphorusRange": [
+        80,
+        120
+      ],
+      "potassiumRange": [
+        100,
+        150
+      ],
+      "phRange": [
+        5,
+        6.5
+      ],
+      "yieldPerHectare": 25,
+      "icon": "🥔",
+      "description": "Important vegetable crop, third most important food crop in the world"
+    },
+    {
+      "id": "chickpea",
+      "name": "Chickpea",
+      "season": "Rabi",
+      "minRainfall": 30,
+      "maxRainfall": 80,
+      "minTemperature": 10,
+      "maxTemperature": 25,
+      "minHumidity": 30,
+      "maxHumidity": 60,
+      "soilTypes": [
+        "Sandy Loam",
+        "Loamy",
+        "Black"
+      ],
+      "nitrogenRange": [
+        15,
+        30
+      ],
+      "phosphorusRange": [
+        40,
+        60
+      ],
+      "potassiumRange": [
+        20,
+        40
+      ],
+      "phRange": [
+        6,
+        8
+      ],
+      "yieldPerHectare": 1.5,
+      "icon": "🫘",
+      "description": "Important pulse crop (Bengal gram / chana), major protein source"
+    },
+    {
+      "id": "lentil",
+      "name": "Lentil",
+      "season": "Rabi",
+      "minRainfall": 25,
+      "maxRainfall": 70,
+      "minTemperature": 5,
+      "maxTemperature": 25,
+      "minHumidity": 25,
+      "maxHumidity": 55,
+      "soilTypes": [
+        "Sandy Loam",
+        "Loamy",
+        "Clay Loam"
+      ],
+      "nitrogenRange": [
+        10,
+        25
+      ],
+      "phosphorusRange": [
+        30,
+        55
+      ],
+      "potassiumRange": [
+        20,
+        35
+      ],
+      "phRange": [
+        6,
+        8
+      ],
+      "yieldPerHectare": 1.2,
+      "icon": "🟤",
+      "description": "Nutritious cool-season pulse crop (Masoor dal)"
+    },
+    {
+      "id": "mustard",
+      "name": "Mustard",
+      "season": "Rabi",
+      "minRainfall": 25,
+      "maxRainfall": 60,
+      "minTemperature": 10,
+      "maxTemperature": 25,
+      "minHumidity": 30,
+      "maxHumidity": 60,
+      "soilTypes": [
+        "Sandy Loam",
+        "Loamy",
+        "Alluvial"
+      ],
+      "nitrogenRange": [
+        60,
+        100
+      ],
+      "phosphorusRange": [
+        30,
+        50
+      ],
+      "potassiumRange": [
+        30,
+        50
+      ],
+      "phRange": [
+        6,
+        7.5
+      ],
+      "yieldPerHectare": 1.8,
+      "icon": "🌼",
+      "description": "Major oilseed Rabi crop, widely grown in North India"
+    },
+    {
+      "id": "tomato",
+      "name": "Tomato",
+      "season": "Rabi",
+      "minRainfall": 40,
+      "maxRainfall": 100,
+      "minTemperature": 15,
+      "maxTemperature": 30,
+      "minHumidity": 50,
+      "maxHumidity": 75,
+      "soilTypes": [
+        "Sandy Loam",
+        "Loamy",
+        "Red"
+      ],
+      "nitrogenRange": [
+        100,
+        150
+      ],
+      "phosphorusRange": [
+        60,
+        80
+      ],
+      "potassiumRange": [
+        80,
+        120
+      ],
+      "phRange": [
+        5.5,
+        7
+      ],
+      "yieldPerHectare": 20,
+      "icon": "🍅",
+      "description": "High-value vegetable crop, grown across India in diverse climates"
+    },
+    {
+      "id": "onion",
+      "name": "Onion",
+      "season": "Rabi",
+      "minRainfall": 35,
+      "maxRainfall": 75,
+      "minTemperature": 13,
+      "maxTemperature": 28,
+      "minHumidity": 40,
+      "maxHumidity": 70,
+      "soilTypes": [
+        "Sandy Loam",
+        "Loamy",
+        "Alluvial"
+      ],
+      "nitrogenRange": [
+        80,
+        120
+      ],
+      "phosphorusRange": [
+        50,
+        70
+      ],
+      "potassiumRange": [
+        50,
+        80
+      ],
+      "phRange": [
+        6,
+        7.5
+      ],
+      "yieldPerHectare": 22,
+      "icon": "🧅",
+      "description": "Important vegetable and spice crop, major export commodity"
+    },
+    {
+      "id": "banana",
+      "name": "Banana",
+      "season": "Kharif",
+      "minRainfall": 100,
+      "maxRainfall": 200,
+      "minTemperature": 22,
+      "maxTemperature": 38,
+      "minHumidity": 70,
+      "maxHumidity": 90,
+      "soilTypes": [
+        "Alluvial",
+        "Loamy",
+        "Clay Loam"
+      ],
+      "nitrogenRange": [
+        150,
+        250
+      ],
+      "phosphorusRange": [
+        50,
+        100
+      ],
+      "potassiumRange": [
+        150,
+        250
+      ],
+      "phRange": [
+        6,
+        7.5
+      ],
+      "yieldPerHectare": 35,
+      "icon": "🍌",
+      "description": "Major fruit crop, high potassium demand, tropical climate"
+    },
+    {
+      "id": "mango",
+      "name": "Mango",
+      "season": "Zaid",
+      "minRainfall": 75,
+      "maxRainfall": 175,
+      "minTemperature": 24,
+      "maxTemperature": 40,
+      "minHumidity": 50,
+      "maxHumidity": 80,
+      "soilTypes": [
+        "Alluvial",
+        "Sandy Loam",
+        "Red"
+      ],
+      "nitrogenRange": [
+        80,
+        130
+      ],
+      "phosphorusRange": [
+        30,
+        60
+      ],
+      "potassiumRange": [
+        50,
+        100
+      ],
+      "phRange": [
+        5.5,
+        7.5
+      ],
+      "yieldPerHectare": 10,
+      "icon": "🥭",
+      "description": "King of fruits, India is the world's largest mango producer"
+    },
+    {
+      "id": "jowar",
+      "name": "Jowar (Sorghum)",
+      "season": "Kharif",
+      "minRainfall": 45,
+      "maxRainfall": 100,
+      "minTemperature": 20,
+      "maxTemperature": 38,
+      "minHumidity": 30,
+      "maxHumidity": 70,
+      "soilTypes": [
+        "Black",
+        "Red",
+        "Alluvial"
+      ],
+      "nitrogenRange": [
+        60,
+        100
+      ],
+      "phosphorusRange": [
+        30,
+        50
+      ],
+      "potassiumRange": [
+        25,
+        45
+      ],
+      "phRange": [
+        6,
+        7.5
+      ],
+      "yieldPerHectare": 2.5,
+      "icon": "🌾",
+      "description": "Drought-tolerant cereal crop, staple food in Deccan plateau"
+    }
+  ],
+  "fertilizers": {
+    "rice": [
+      {
+        "name": "Urea",
+        "dosage": "100–120 kg/ha",
+        "applicationTime": "Split: 50% basal, 25% tillering, 25% panicle initiation",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "DAP",
+        "dosage": "50–60 kg/ha",
+        "applicationTime": "Basal application before transplanting",
+        "nutrients": "N (18%), P₂O₅ (46%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "40–50 kg/ha",
+        "applicationTime": "Basal application before transplanting",
+        "nutrients": "K₂O (60%)"
+      },
+      {
+        "name": "Zinc Sulphate",
+        "dosage": "25 kg/ha",
+        "applicationTime": "Basal application (if Zn deficiency)",
+        "nutrients": "Zn (21%), S (23%)"
+      }
+    ],
+    "wheat": [
+      {
+        "name": "Urea",
+        "dosage": "130–150 kg/ha",
+        "applicationTime": "Split: 50% basal, 25% CRI stage, 25% late jointing",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "75 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "40 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "maize": [
+      {
+        "name": "Urea",
+        "dosage": "180–200 kg/ha",
+        "applicationTime": "Split: 33% at sowing, 33% knee-high, 33% tasseling",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "DAP",
+        "dosage": "65 kg/ha",
+        "applicationTime": "Full basal at sowing",
+        "nutrients": "N (18%), P₂O₅ (46%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "50 kg/ha",
+        "applicationTime": "Full basal at sowing",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "cotton": [
+      {
+        "name": "Urea",
+        "dosage": "80–100 kg/ha",
+        "applicationTime": "Split: 30% basal, 40% at squaring, 30% at boll formation",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "50 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "40 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      },
+      {
+        "name": "Boron",
+        "dosage": "1 kg/ha",
+        "applicationTime": "Foliar spray at flowering",
+        "nutrients": "Boron (17%)"
+      }
+    ],
+    "sugarcane": [
+      {
+        "name": "Urea",
+        "dosage": "250–300 kg/ha",
+        "applicationTime": "Split: 33% at planting, 33% at 60 days, 34% at 120 days",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "100 kg/ha",
+        "applicationTime": "Full basal at planting",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "120 kg/ha",
+        "applicationTime": "Full basal at planting",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "soybean": [
+      {
+        "name": "Urea",
+        "dosage": "20–25 kg/ha",
+        "applicationTime": "Basal only (low N due to nitrogen fixation)",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "80 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "50 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      },
+      {
+        "name": "Rhizobium Bio-fertilizer",
+        "dosage": "200 g/10 kg seed",
+        "applicationTime": "Seed treatment before sowing",
+        "nutrients": "Biological Nitrogen Fixation"
+      }
+    ],
+    "groundnut": [
+      {
+        "name": "Urea",
+        "dosage": "15–20 kg/ha",
+        "applicationTime": "Basal only (low N due to nitrogen fixation)",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "60 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "Gypsum",
+        "dosage": "200 kg/ha",
+        "applicationTime": "Top dressing at flowering / pegging stage",
+        "nutrients": "Ca (23%), S (18%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "40 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "potato": [
+      {
+        "name": "Urea",
+        "dosage": "200–220 kg/ha",
+        "applicationTime": "Split: 50% basal, 50% at earthing up (30–35 days)",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "125 kg/ha",
+        "applicationTime": "Full basal at planting",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "150 kg/ha",
+        "applicationTime": "Full basal at planting",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "chickpea": [
+      {
+        "name": "DAP",
+        "dosage": "50–60 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "N (18%), P₂O₅ (46%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "20–30 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      },
+      {
+        "name": "Rhizobium Bio-fertilizer",
+        "dosage": "200 g/10 kg seed",
+        "applicationTime": "Seed treatment before sowing",
+        "nutrients": "Biological Nitrogen Fixation"
+      },
+      {
+        "name": "Sulphur",
+        "dosage": "20 kg/ha",
+        "applicationTime": "Basal application",
+        "nutrients": "Sulphur (90%)"
+      }
+    ],
+    "lentil": [
+      {
+        "name": "DAP",
+        "dosage": "40–50 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "N (18%), P₂O₅ (46%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "15–20 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      },
+      {
+        "name": "Rhizobium Bio-fertilizer",
+        "dosage": "200 g/10 kg seed",
+        "applicationTime": "Seed treatment before sowing",
+        "nutrients": "Biological Nitrogen Fixation"
+      }
+    ],
+    "mustard": [
+      {
+        "name": "Urea",
+        "dosage": "80–100 kg/ha",
+        "applicationTime": "Split: 50% basal, 50% at first irrigation (25–30 days)",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "50 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "30 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      },
+      {
+        "name": "Boron",
+        "dosage": "1.5 kg/ha",
+        "applicationTime": "Foliar spray at bud initiation",
+        "nutrients": "Boron (17%)"
+      }
+    ],
+    "tomato": [
+      {
+        "name": "Urea",
+        "dosage": "200–250 kg/ha",
+        "applicationTime": "Split: 33% basal, 33% at flowering, 34% at fruiting",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "125 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "100 kg/ha",
+        "applicationTime": "Split: 50% basal, 50% at fruit set",
+        "nutrients": "K₂O (60%)"
+      },
+      {
+        "name": "Calcium Nitrate",
+        "dosage": "5 g/L",
+        "applicationTime": "Foliar spray to prevent blossom end rot",
+        "nutrients": "Ca (19%), N (15.5%)"
+      }
+    ],
+    "onion": [
+      {
+        "name": "Urea",
+        "dosage": "120–130 kg/ha",
+        "applicationTime": "Split: 50% basal, 25% at 30 days, 25% at 45 days",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "75 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "80 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "banana": [
+      {
+        "name": "Urea",
+        "dosage": "300–350 kg/ha/year",
+        "applicationTime": "Split: 6 doses at bimonthly intervals",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "150 kg/ha/year",
+        "applicationTime": "Split: 2 doses at 2 & 5 months",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "400 kg/ha/year",
+        "applicationTime": "Split: 4 doses at quarterly intervals",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "mango": [
+      {
+        "name": "Urea",
+        "dosage": "1.5 kg/tree/year (adult)",
+        "applicationTime": "Split: June–July and Oct–Nov",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "1 kg/tree/year",
+        "applicationTime": "October–November before monsoon break",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "1 kg/tree/year",
+        "applicationTime": "October–November before monsoon break",
+        "nutrients": "K₂O (60%)"
+      }
+    ],
+    "jowar": [
+      {
+        "name": "Urea",
+        "dosage": "65–85 kg/ha",
+        "applicationTime": "Split: 50% basal, 50% at knee-high stage",
+        "nutrients": "Nitrogen (46%)"
+      },
+      {
+        "name": "SSP",
+        "dosage": "50 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "P₂O₅ (16%), S (11%)"
+      },
+      {
+        "name": "MOP",
+        "dosage": "30 kg/ha",
+        "applicationTime": "Full basal application",
+        "nutrients": "K₂O (60%)"
+      }
+    ]
+  },
+  "disease_pest_cards": [
+    {
+      "id": "rice_blast",
+      "crop": "rice",
+      "condition": "Rice Blast",
+      "type": "disease",
+      "aliases": [
+        "Rice___Blast",
+        "Rice___Leaf_Blast",
+        "Leaf blast",
+        "Neck blast",
+        "Magnaporthe oryzae"
+      ],
+      "symptoms": [
+        "Spindle-shaped or diamond-shaped lesions on leaves with whitish-grey centers and dark brown/reddish margins.",
+        "In advanced infection, dark necrotic lesions at the panicle neck (neck blast) causing chaffy grains or broken panicles."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% leaf area affected with isolated leaf lesions and no neck/node involvement.",
+        "moderate": "5%–25% leaf area affected or > 5% tillers showing active expanding lesions.",
+        "severe": "> 25% leaf area affected, coalescing blight, or any panicle neck/node blast infection."
+      },
+      "cultural_organic_control": [
+        "Avoid excessive split top-dressing of nitrogenous fertilizer (urea), which promotes succulent blast-susceptible foliage.",
+        "Maintain field sanitation by removing collateral weed hosts on bunds and avoiding severe water stress.",
+        "Seed/root-dip bio-management with Pseudomonas fluorescens as recommended in local SAU/ICAR Package of Practices."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Tricyclazole 75% WP or Isoprothiolane 40% EC",
+          "target_stage": "Active foliar blast at moderate incidence or preventive boot/heading spray in endemic belts",
+          "cibrc_aligned_note": "CIB&RC registered fungicide for paddy blast management.",
+          "safety_warning": "Apply only if moderate/severe ETL is crossed. Verify exact CIB&RC label dilution and Pre-Harvest Interval (PHI) on the container or with local KVK/DAO before spraying; wear PPE and avoid drift to water bodies."
+        },
+        {
+          "active_ingredient": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
+          "target_stage": "Panicle emergence / neck blast risk stage",
+          "cibrc_aligned_note": "Combination systemic fungicide registered for paddy blast/sheath diseases.",
+          "safety_warning": "Rotate FRAC fungicide groups to delay resistance. Confirm exact label dosage and PHI with local KVK before application."
+        }
+      ],
+      "region_notes": {
+        "general": "Favored by high relative humidity (>85%), prolonged leaf wetness/dew, cloudy weather, and high nitrogen doses.",
+        "Eastern India & Coastal": "Monitor closely during Kharif tillering and Boro booting in Assam, West Bengal, Odisha, and coastal Andhra.",
+        "North-Western Plains": "High blast susceptibility reported in Basmati varieties across Punjab, Haryana, and Western UP."
+      },
+      "kvk_escalation_trigger": "Escalate immediately to local KVK if neck/node blast appears at panicle emergence or >25% leaf area is blighted.",
+      "source_reference": "ICAR-IIRR / DPPQS IPM Package for Rice"
+    },
+    {
+      "id": "rice_brown_spot",
+      "crop": "rice",
+      "condition": "Brown Spot",
+      "type": "disease",
+      "aliases": [
+        "Rice___Brown_Spot",
+        "Rice Brown Spot",
+        "Brown spot",
+        "Bipolaris oryzae",
+        "Helminthosporium leaf spot"
+      ],
+      "symptoms": [
+        "Circular to oval dark brown spots on leaves with a yellow halo around the margin.",
+        "Severe infection causes black discoloration on glumes/grains and poor grain filling."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% leaf area covered by small discrete brown spots.",
+        "moderate": "5%–20% leaf area affected with spots coalescing on lower/middle leaves.",
+        "severe": "> 20% leaf area affected or widespread spikelet/grain discoloration at flowering."
+      },
+      "cultural_organic_control": [
+        "Correct underlying soil nutrient deficiency (especially potassium, silicon, and zinc) based on a Soil Health Card test.",
+        "Use disease-free certified seed and perform hot-water or Pseudomonas bio-priming prior to nursery sowing.",
+        "Avoid sudden drought stress by maintaining shallow uniform moisture during active tillering."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Mancozeb 75% WP or Propiconazole 25% EC",
+          "target_stage": "Moderate foliar spread or boot-leaf protection against grain spotting",
+          "cibrc_aligned_note": "CIB&RC-approved fungicide options for rice brown spot.",
+          "safety_warning": "Brown spot is strongly linked to nutrient/moisture stress; address soil fertility first. Confirm exact label dosage and PHI with local KVK/DAO and wear protective gear."
+        }
+      ],
+      "region_notes": {
+        "general": "Historically severe in nutrient-poor, rainfed upland, or moisture-stressed paddy soils.",
+        "Eastern & Central India": "Common in rainfed shallow lowlands of Bihar, Jharkhand, Chhattisgarh, Odisha, and West Bengal."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK for soil nutrient diagnostics if brown spot persists across consecutive seasons or affects >20% foliage.",
+      "source_reference": "ICAR-IIRR / DPPQS IPM Package for Rice"
+    },
+    {
+      "id": "rice_bacterial_leaf_blight",
+      "crop": "rice",
+      "condition": "Bacterial Leaf Blight",
+      "type": "disease",
+      "aliases": [
+        "Rice___Bacterial_Leaf_Blight",
+        "Bacterial leaf blight",
+        "BLB",
+        "Xanthomonas oryzae"
+      ],
+      "symptoms": [
+        "Water-soaked yellow-to-straw-colored stripes starting from leaf tips and margins with wavy inner edges.",
+        "Early morning bacterial ooze droplets on young lesions that dry into yellowish beads."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% leaf area showing marginal blighting on older leaves.",
+        "moderate": "5%–20% leaf area blighted across localized field patches.",
+        "severe": "> 20% leaf area blighted or Kresek (systemic seedling/tiller wilting) observed."
+      },
+      "cultural_organic_control": [
+        "Drain standing water temporarily and withhold nitrogen top-dressing immediately upon first BLB detection.",
+        "Avoid moving irrigation water from infected plots into healthy downstream paddy fields.",
+        "Clip leaf tips only if healthy; avoid mechanical injury during weeding in wet conditions."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Copper Hydroxide 53.8% DF or Copper Oxychloride 50% WP",
+          "target_stage": "Early localized focus spread (fungicides like Tricyclazole/Carbendazim are ineffective against bacteria)",
+          "cibrc_aligned_note": "Bactericidal copper formulation; verify current state KVK advisory on bactericides.",
+          "safety_warning": "Standard fungal sprays do not control bacterial blight. Confirm locally approved bactericide protocol and label dosage with KVK/DAO; avoid routine antibiotic misuse."
+        }
+      ],
+      "region_notes": {
+        "general": "Triggered by monsoon storms, leaf wounding, high nitrogen, and stagnant standing water.",
+        "Indo-Gangetic & Coastal Deltas": "Frequent post-cyclone/heavy-rain outbreaks in Punjab, Haryana, UP, Andhra Pradesh, and Tamil Nadu."
+      },
+      "kvk_escalation_trigger": "Escalate urgently to KVK if Kresek wilting appears or wavy blight spreads rapidly after storm damage.",
+      "source_reference": "ICAR-IIRR / DPPQS IPM Package for Rice"
+    },
+    {
+      "id": "rice_brown_planthopper",
+      "crop": "rice",
+      "condition": "Brown Planthopper",
+      "type": "pest",
+      "aliases": [
+        "brown plant hopper",
+        "Brown Planthopper (BPH)",
+        "BPH",
+        "Nilaparvata lugens"
+      ],
+      "symptoms": [
+        "Nymphs and brownish adults clustering at the basal stem near water level sucking plant sap.",
+        "Circular patches of yellowing, drying, and lodging plants known as 'hopper burn'."
+      ],
+      "severity_thresholds": {
+        "low": "< 5 hoppers per hill (monitor natural predators like spiders and mirid bugs).",
+        "moderate": "5–10 hoppers per hill at vegetative stage or 10–20 at panicle stage.",
+        "severe": "> 10–20 hoppers per hill or visible circular hopper-burn patches."
+      },
+      "cultural_organic_control": [
+        "Drain standing field water for 3–4 days to expose basal stems and disrupt BPH microclimate.",
+        "Form alleyways (skipping 1 row every 8–10 rows) during planting/mid-season to improve aeration and light penetration.",
+        "Conserve natural enemies (wolf spiders, mirid bugs); avoid synthetic pyrethroids which trigger BPH resurgence."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Pymetrozine 50% WG or Dinotefuran 20% SG or Buprofezin 25% SC",
+          "target_stage": "Direct spray towards stem base only when ETL (10+ hoppers/hill) is exceeded",
+          "cibrc_aligned_note": "CIB&RC-approved selective hoppers-targeted insecticides.",
+          "safety_warning": "Avoid broad-spectrum synthetic pyrethroids (cause pest resurgence). Direct nozzle to plant base; check label dosage, PHI, and bee/fish safety warnings with local KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Thrives in dense, heavily fertilized, continuously flooded paddy canopies.",
+        "Godavari/Krishna & IGP Belts": "Major late-Kharif and Rabi threat in Andhra Pradesh, Telangana, Odisha, Punjab, and Haryana."
+      },
+      "kvk_escalation_trigger": "Escalate immediately to KVK if hopper-burn patches appear or hopper counts exceed 15–20 per hill despite drainage.",
+      "source_reference": "ICAR-IIRR / DPPQS IPM Package for Rice"
+    },
+    {
+      "id": "wheat_leaf_rust",
+      "crop": "wheat",
+      "condition": "Wheat Leaf Rust (Brown Rust)",
+      "type": "disease",
+      "aliases": [
+        "Wheat___Leaf_Rust",
+        "Wheat___Brown_Rust",
+        "Wheat Rust",
+        "Leaf rust",
+        "Brown rust",
+        "Puccinia triticina"
+      ],
+      "symptoms": [
+        "Small, round to oval orange-brown pustules (uredia) scattered irregularly on the upper leaf surface.",
+        "Rusty orange spore powder rubs off easily on fingers when touched."
+      ],
+      "severity_thresholds": {
+        "low": "Trace to < 5% leaf area covered on lower leaves.",
+        "moderate": "5%–20% leaf area covered moving onto flag/upper leaves.",
+        "severe": "> 20% leaf area covered on upper/flag leaves during booting or grain filling."
+      },
+      "cultural_organic_control": [
+        "Cultivate locally recommended rust-resistant wheat varieties (e.g., ICAR-IIWBR released varieties for your zone).",
+        "Avoid late sowing and excessive nitrogen application which prolong succulent foliage.",
+        "Scout fields weekly starting January–February for early foci."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Propiconazole 25% EC or Tebuconazole 25.9% EC",
+          "target_stage": "Flag-leaf protection when pustules appear on upper canopy above trace levels",
+          "cibrc_aligned_note": "CIB&RC-registered triazole fungicides recommended by ICAR-IIWBR for wheat rusts.",
+          "safety_warning": "Do not spray if crop is near physiological maturity. Verify CIB&RC label dosage, PHI, and protective equipment requirements with local KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Favored by mild temperatures (15–25°C) and morning dew/humidity across wheat belts.",
+        "Central & Peninsular India": "Early appearance possible in Madhya Pradesh, Maharashtra, and Gujarat."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK/ICAR-IIWBR alert network if rust appears on flag leaves or on previously resistant cultivars.",
+      "source_reference": "ICAR-IIWBR Wheat Crop Protection Advisory"
+    },
+    {
+      "id": "wheat_yellow_rust",
+      "crop": "wheat",
+      "condition": "Wheat Yellow Rust (Stripe Rust)",
+      "type": "disease",
+      "aliases": [
+        "Wheat___Yellow_Rust",
+        "Yellow rust",
+        "Stripe rust",
+        "Wheat Stripe Rust",
+        "Puccinia striiformis"
+      ],
+      "symptoms": [
+        "Bright yellow-to-lemon pustules arranged in narrow linear stripes parallel to leaf veins.",
+        "Yellow dust/spores stain clothing or fingers when brushing past infected leaves."
+      ],
+      "severity_thresholds": {
+        "low": "Isolated early foci (< 5% plants) in shaded/sub-mountainous pockets.",
+        "moderate": "5%–15% leaf severity spreading outward from initial foci.",
+        "severe": "> 15% leaf severity or rapid multi-leaf epidemic spread before grain fill."
+      },
+      "cultural_organic_control": [
+        "Inspect field borders, poplar-shaded rows, and early-sown patches weekly during cool winter weather (10–18°C).",
+        "Remove/avoid susceptible varieties in sub-mountainous zones and adopt recommended varietal diversification."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Propiconazole 25% EC or Tebuconazole 25% WG or Azoxystrobin + Tebuconazole",
+          "target_stage": "Immediate spot-spraying around initial yellow rust foci to halt downwind spore spread",
+          "cibrc_aligned_note": "ICAR-IIWBR recommended rust fungicides for NWPZ stripe rust containment.",
+          "safety_warning": "Spot-spray foci promptly rather than waiting for field-wide spread. Confirm exact label dilution and PHI with local KVK/Agriculture Department."
+        }
+      ],
+      "region_notes": {
+        "general": "Cool-weather pathogen (10–20°C with fog/dew); spreads rapidly by wind.",
+        "North-Western Plains & Hills": "High priority surveillance in Punjab, Haryana, Himachal foothills, Uttarakhand, J&K, and Western UP."
+      },
+      "kvk_escalation_trigger": "Escalate immediately to KVK/State Agriculture Department on first confirmed yellow rust focus to trigger regional containment.",
+      "source_reference": "ICAR-IIWBR Stripe Rust Surveillance & Management Guidelines"
+    },
+    {
+      "id": "wheat_aphids",
+      "crop": "wheat",
+      "condition": "Wheat Aphids",
+      "type": "pest",
+      "aliases": [
+        "aphids",
+        "wheat aphids",
+        "cereal aphid",
+        "Sitobion avenae",
+        "Rhopalosiphum maidis"
+      ],
+      "symptoms": [
+        "Colonies of soft-bodied green/yellowish aphids clustering on earheads, flag leaves, and tender stems.",
+        "Sticky honeydew on leaves attracting black sooty mold and yellowing/shriveled grains."
+      ],
+      "severity_thresholds": {
+        "low": "< 5 aphids per earhead/tiller with ladybird beetles present.",
+        "moderate": "5–10 aphids per earhead/tiller on border rows.",
+        "severe": "> 10 aphids per earhead/tiller across the main field during milky grain stage."
+      },
+      "cultural_organic_control": [
+        "Preserve natural predators (coccinellid ladybird beetles, syrphid flies, lacewings) — avoid unnecessary sprays below ETL.",
+        "Install yellow sticky traps along field borders for early monitoring.",
+        "Use neem-based formulation (Azadirachtin) on initial border colonies if predators are scarce."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Imidacloprid 17.8% SL or Thiamethoxam 25% WG",
+          "target_stage": "Spray only when aphid count crosses ETL (>10 aphids/earhead) with low predator activity",
+          "cibrc_aligned_note": "CIB&RC-registered systemic aphicides for wheat.",
+          "safety_warning": "Do not spray if ladybird beetles are actively controlling small colonies. Follow label PHI and avoid spraying during pollinator foraging hours; verify dose with KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Typically builds up during February–March warming as wheat heads emerge.",
+        "Punjab, Haryana, UP & Rajasthan": "Often starts from field margins; border-only spraying frequently suffices."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK if aphid densities exceed 15–20 per earhead at grain filling or fail to respond to border management.",
+      "source_reference": "ICAR-IIWBR / DPPQS IPM Package for Wheat"
+    },
+    {
+      "id": "cotton_bollworm",
+      "crop": "cotton",
+      "condition": "Cotton Bollworm",
+      "type": "pest",
+      "aliases": [
+        "bollworm",
+        "cotton bollworm",
+        "American bollworm",
+        "Pink bollworm",
+        "Helicoverpa armigera",
+        "Pectinophora gossypiella"
+      ],
+      "symptoms": [
+        "Circular bore holes in squares, flowers, and green bolls with larval frass (excreta) or flared/rosetted flowers.",
+        "Premature square/boll shedding and stained lint inside damaged bolls."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% damaged squares/bolls or below pheromone trap threshold.",
+        "moderate": "5%–10% damaged fruiting bodies or >= 8–10 moths/trap/night for 3 consecutive nights.",
+        "severe": "> 10% damaged bolls/squares or widespread pink bollworm rosette flowers across field."
+      },
+      "cultural_organic_control": [
+        "Install pheromone traps (5 traps/ha) to monitor adult moth catches and time interventions accurately.",
+        "Collect and destroy fallen infested squares/rosetted flowers and erect bird perches (10–15/ha).",
+        "Spray Neem Seed Kernel Extract (NSKE 5%) or Bacillus thuringiensis (Bt) / HaNPV against early-instar larvae."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Emamectin benzoate 5% SG or Chlorantraniliprole 18.5% SC or Spinosad 45% SC",
+          "target_stage": "Early larval instar emergence coinciding with ETL crossing (5–10% damage)",
+          "cibrc_aligned_note": "CIB&RC-registered larvicides per ICAR-CICR resistance management guidelines.",
+          "safety_warning": "Never use banned insecticides or tank-mix arbitrary cocktails. Avoid repeated synthetic pyrethroid use early season; verify label dose, PHI, and IRAC rotation with local KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Pink bollworm resistance to Bt cotton has increased importance of pheromone monitoring and timely crop termination.",
+        "Maharashtra, Gujarat, Telangana & Punjab": "Follow state ICAR-CICR seasonal termination schedules and avoid extending ratoon/late cotton."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK immediately if bollworm infestation exceeds 10% green bolls or affects Bt-cotton hybrids.",
+      "source_reference": "ICAR-CICR / DPPQS Cotton IPM & Pink Bollworm Advisory"
+    },
+    {
+      "id": "cotton_aphids",
+      "crop": "cotton",
+      "condition": "Cotton Aphids",
+      "type": "pest",
+      "aliases": [
+        "aphids",
+        "cotton aphid",
+        "cotton aphids",
+        "Aphis gossypii"
+      ],
+      "symptoms": [
+        "Dense clusters of yellow-green to dark green aphids on tender shoots and leaf undersides.",
+        "Downward curling/crinkling of young leaves coated with shiny honeydew and black sooty mold."
+      ],
+      "severity_thresholds": {
+        "low": "< 10% plants infested with light shoot colonies and active predators.",
+        "moderate": "10%–20% plants showing leaf curling and honeydew deposition.",
+        "severe": "> 20% plants severely stunted with heavy honeydew/sooty mold threatening open bolls."
+      },
+      "cultural_organic_control": [
+        "Avoid excessive nitrogenous fertilizer which increases lush sap-feeding attractiveness.",
+        "Conserve coccinellid predators and chrysopids; deploy yellow sticky traps for monitoring.",
+        "Apply neem-based botanicals (Azadirachtin 1500 ppm) during initial build-up."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Flonicamid 50% WG or Imidacloprid 17.8% SL or Acetamiprid 20% SP",
+          "target_stage": "Only when sucking pest ETL (15–20 aphids/leaf or >15% infested plants) is reached",
+          "cibrc_aligned_note": "CIB&RC-approved selective sucking-pest insecticides.",
+          "safety_warning": "Wait until ETL is exceeded to protect beneficial predators and avoid whitefly flare-up. Spray during late afternoon to protect honeybees; confirm label dosage with KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Frequently peaks during dry spells following early monsoon or mid-vegetative growth.",
+        "Central & Southern Cotton Zones": "Monitor closely in rainfed black cotton soils of Vidarbha, Marathwada, Gujarat, and Telangana."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK if honeydew contaminates open lint or multiple sucking pests co-occur above ETL.",
+      "source_reference": "ICAR-CICR / DPPQS IPM Package for Cotton"
+    },
+    {
+      "id": "cotton_whitefly",
+      "crop": "cotton",
+      "condition": "Cotton Whitefly",
+      "type": "pest",
+      "aliases": [
+        "whitefly",
+        "cotton whitefly",
+        "Bemisia tabaci"
+      ],
+      "symptoms": [
+        "Tiny white moth-like insects rising in clouds from undersides of leaves when disturbed.",
+        "Yellowing leaves, sticky honeydew, black sooty mold, and potential Cotton Leaf Curl Virus (CLCuV) transmission."
+      ],
+      "severity_thresholds": {
+        "low": "< 4 adults per leaf.",
+        "moderate": "4–6 adults per leaf (approaching ETL of 6 adults/leaf).",
+        "severe": "> 6–8 adults per leaf or heavy nymphal scales with sooty mold / leaf curl."
+      },
+      "cultural_organic_control": [
+        "Install yellow sticky traps (25–40/ha) and remove weed hosts (kanghi buti, peeli buti) on field bunds.",
+        "Spray Neem/NSKE 5% or fish oil rosin soap targeting leaf undersides early in infestation.",
+        "Avoid synthetic pyrethroids and tank mixes which trigger severe whitefly resurgence."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Pyriproxyfen 10% EC or Spiromesifen 22.9% SC or Diafenthiuron 50% WP",
+          "target_stage": "Egg/nymphal stages or adult ETL (>= 6 whiteflies/leaf) using thorough under-leaf coverage",
+          "cibrc_aligned_note": "ICAR-CICR recommended IGRs/selective whitefly molecules.",
+          "safety_warning": "Strictly avoid unapproved insecticide mixtures and pyrethroids. Rotate modes of action, verify CIB&RC label dose/PHI with KVK, and protect pollinators."
+        }
+      ],
+      "region_notes": {
+        "general": "High humidity alternating with dry hot spells accelerates whitefly generations.",
+        "North Cotton Zone": "Critical vector of Cotton Leaf Curl Disease (CLCuD) in Punjab, Haryana, and Rajasthan."
+      },
+      "kvk_escalation_trigger": "Escalate urgently to KVK if whitefly exceeds 6–8 adults/leaf or leaf curl symptoms emerge.",
+      "source_reference": "ICAR-CICR Whitefly Management Protocol"
+    },
+    {
+      "id": "potato_late_blight",
+      "crop": "potato",
+      "condition": "Potato Late Blight",
+      "type": "disease",
+      "aliases": [
+        "Potato___Late_blight",
+        "Late blight",
+        "Potato Late Blight",
+        "Phytophthora infestans"
+      ],
+      "symptoms": [
+        "Irregular water-soaked dark green to purplish-black lesions on leaf tips/margins expanding rapidly.",
+        "White cottony fungal-like growth visible on the underside of lesions during humid mornings, accompanied by a characteristic rotting odor."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% foliage affected in isolated plants under cool humid conditions.",
+        "moderate": "5%–15% foliage infected (rapid epidemic potential within 3–5 days).",
+        "severe": "> 15% foliage blighted or stem lesions visible; high risk of tuber rot."
+      },
+      "cultural_organic_control": [
+        "Use certified blight-free seed tubers and destroy volunteer plants and cull piles.",
+        "Ensure proper earthing up (ridge height) to prevent zoospores washing onto tubers, and avoid over-irrigation during cloudy/foggy spells.",
+        "Rogue and bury isolated early-infected plants carefully away from field."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Cymoxanil 8% + Mancozeb 64% WP or Dimethomorph 50% WP + Mancozeb or Metalaxyl-M 4% + Mancozeb 64% WP",
+          "target_stage": "Immediate curative/systemic + contact spray upon first symptom or local blight forecast alert",
+          "cibrc_aligned_note": "ICAR-CPRI recommended anti-oomycete fungicides for late blight.",
+          "safety_warning": "Late blight spreads explosively in fog/rain; never rely on single-site systemic fungicides alone (use co-formulations to prevent resistance). Verify label dosage & PHI with KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Explodes rapidly at 10–20°C with >80% humidity, fog, or winter drizzle.",
+        "Indo-Gangetic Plains & Hills": "Monitor ICAR-CPRI Indo-Blightcast alerts in UP, West Bengal, Bihar, Punjab, and hill regions."
+      },
+      "kvk_escalation_trigger": "Escalate immediately to KVK/CPRI advisory on first blight detection during foggy/rainy weather to prevent total crop collapse.",
+      "source_reference": "ICAR-CPRI Late Blight Management Advisory"
+    },
+    {
+      "id": "potato_early_blight",
+      "crop": "potato",
+      "condition": "Potato Early Blight",
+      "type": "disease",
+      "aliases": [
+        "Potato___Early_blight",
+        "Early blight",
+        "Potato Early Blight",
+        "Alternaria solani"
+      ],
+      "symptoms": [
+        "Dark brown to black circular/angular spots on older lower leaves displaying distinct concentric rings ('target-board' pattern).",
+        "Yellow chlorotic halo around lesions leading to premature defoliation of lower canopy."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% area on lower senescent leaves.",
+        "moderate": "5%–20% leaf area affected progressing up to middle leaves.",
+        "severe": "> 20% foliage blighted on middle/upper canopy prior to tuber bulking completion."
+      },
+      "cultural_organic_control": [
+        "Maintain balanced crop nutrition (adequate N and K) as nutrient-stressed plants suffer severe early blight.",
+        "Remove and compost/destroy infected crop debris after harvest and rotate with non-solanaceous crops (cereals/pulses).",
+        "Avoid overhead sprinkler irrigation late in the afternoon."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Mancozeb 75% WP or Chlorothalonil 75% WP or Azoxystrobin 23% SC",
+          "target_stage": "When concentric lesions spread upward onto middle leaves",
+          "cibrc_aligned_note": "CIB&RC-approved fungicides for Alternaria blight in potato.",
+          "safety_warning": "Ensure spray reaches lower and middle foliage. Verify exact CIB&RC label dilution, PHI, and PPE instructions with local KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Favored by warm temperatures (24–30°C) alternating with wet dew/irrigation cycles.",
+        "Plains & Plateau Potato Belts": "Common in mid-to-late crop stages across UP, Gujarat, Madhya Pradesh, and Karnataka."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK if upper canopy defoliation exceeds 20% during active tuber bulking.",
+      "source_reference": "ICAR-CPRI / DPPQS IPM Package for Potato"
+    },
+    {
+      "id": "tomato_early_blight",
+      "crop": "tomato",
+      "condition": "Tomato Early Blight",
+      "type": "disease",
+      "aliases": [
+        "Tomato___Early_blight",
+        "Early blight",
+        "Tomato Early Blight",
+        "Alternaria solani"
+      ],
+      "symptoms": [
+        "Dark brown spots with concentric target-board rings surrounded by yellow halos starting on older lower leaves.",
+        "Sunken dark leathery lesions may also develop near the stem-end calyx of fruits."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% lower leaf area affected.",
+        "moderate": "5%–20% foliage affected spreading toward mid-canopy and fruit trusses.",
+        "severe": "> 20% foliage defoliated or stem/fruit calyx lesions causing fruit drop."
+      },
+      "cultural_organic_control": [
+        "Prune and destroy heavily infected lower leaves touching soil and stake plants for airflow.",
+        "Apply organic mulch around base to prevent soil splash onto lower foliage during irrigation/rain.",
+        "Follow 2–3 year crop rotation away from tomato, potato, and brinjal."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Mancozeb 75% WP or Azoxystrobin 23% SC or Difenoconazole 25% EC",
+          "target_stage": "At initial upward spread from lower leaves to protect fruiting trusses",
+          "cibrc_aligned_note": "CIB&RC-registered fungicides for tomato Alternaria early blight.",
+          "safety_warning": "Strictly observe Pre-Harvest Interval (PHI) on picking-stage tomato fruits! Verify label dilution and safe waiting days with KVK before application."
+        }
+      ],
+      "region_notes": {
+        "general": "Thrives in warm humid conditions (24–29°C) with frequent dew or drip/furrow splash.",
+        "Maharashtra, Karnataka, AP & North India": "Pervasive during post-monsoon and late-Rabi tomato harvests."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK if stem-collar cankers or >20% fruit/foliage loss threatens marketable harvest.",
+      "source_reference": "ICAR-IIHR / DPPQS IPM Package for Tomato"
+    },
+    {
+      "id": "tomato_late_blight",
+      "crop": "tomato",
+      "condition": "Tomato Late Blight",
+      "type": "disease",
+      "aliases": [
+        "Tomato___Late_blight",
+        "Late blight",
+        "Tomato Late Blight",
+        "Phytophthora infestans"
+      ],
+      "symptoms": [
+        "Large, water-soaked greenish-black blotches on leaves and dark brown greasy streaks on stems.",
+        "Firm, dark brown greasy marbled rot on green fruits, with white mold visible in humid mornings."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% foliage showing isolated water-soaked patches.",
+        "moderate": "5%–15% foliage or stem streaks detected under cool wet weather.",
+        "severe": "> 15% foliage/stem blight or active fruit rot across plants."
+      },
+      "cultural_organic_control": [
+        "Stake tomato plants, remove excess suckers for canopy ventilation, and avoid late-evening irrigation.",
+        "Promptly rogue and bury severely blighted stems/fruits away from the field.",
+        "Avoid planting tomato immediately adjacent to late-blight-infected potato fields."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Cymoxanil 8% + Mancozeb 64% WP or Dimethomorph 50% WP + Mancozeb",
+          "target_stage": "Prompt intervention at first water-soaked lesion under cool humid forecasts",
+          "cibrc_aligned_note": "CIB&RC-aligned oomycete fungicide formulations for tomato.",
+          "safety_warning": "Observe strict Pre-Harvest Interval (PHI) before harvesting tomatoes for consumption. Confirm label dilution and safe waiting period with local KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Cool wet weather (12–22°C, RH >85%) drives rapid stem and fruit collapse.",
+        "Hills, North Plains & Western Ghats": "High risk during winter rains and monsoon tomato cultivation."
+      },
+      "kvk_escalation_trigger": "Escalate immediately to KVK if stem blight or fruit rot appears in cool humid weather.",
+      "source_reference": "ICAR-IIHR / DPPQS IPM Package for Tomato"
+    },
+    {
+      "id": "tomato_yellow_leaf_curl_virus",
+      "crop": "tomato",
+      "condition": "Tomato Yellow Leaf Curl Virus",
+      "type": "disease",
+      "aliases": [
+        "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+        "Tomato Leaf Curl Virus",
+        "TYLCV",
+        "ToLCV",
+        "Leaf curl"
+      ],
+      "symptoms": [
+        "Severe upward curling and cupping of leaves, yellowing along leaf margins, and bushy stunted plant growth.",
+        "Drastic flower drop and miniature or absent fruit set."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% plants infected with isolated whitefly vector presence.",
+        "moderate": "5%–15% plants showing curling symptoms.",
+        "severe": "> 15% plants stunted with leaf curl prior to flowering."
+      },
+      "cultural_organic_control": [
+        "Rogue and destroy infected plants immediately (bag before pulling to avoid dispersing whiteflies), as viral diseases have NO chemical cure.",
+        "Raise nursery seedlings under insect-proof 40–50 mesh nylon net and plant resistant hybrids.",
+        "Install yellow sticky traps (20–30/ha) and spray Neem/NSKE 5% to deter the whitefly vector (Bemisia tabaci)."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Imidacloprid 17.8% SL or Thiamethoxam 25% WG or Spiromesifen 22.9% SC (Whitefly Vector Control Only)",
+          "target_stage": "Targeted ONLY against the whitefly vector on healthy/border plants when whiteflies are present; zero effect on virus itself",
+          "cibrc_aligned_note": "CIB&RC-registered vector insecticides; fungicides/bactericides cannot cure viruses.",
+          "safety_warning": "NO pesticide cures Leaf Curl Virus. Never waste money spraying fungicides for viral curling. Manage whitefly vectors safely per KVK label dosage and observe strict PHI on fruiting crops."
+        }
+      ],
+      "region_notes": {
+        "general": "Transmitted exclusively by whitefly (Bemisia tabaci); worst in dry warm pre-monsoon/summer plantings.",
+        "Karnataka, Maharashtra, AP & North Plains": "Use ToLCV-tolerant hybrids and barrier border crops (maize/sorghum) around nurseries."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK if >15% nursery or early transplanted crop develops viral leaf curl for varietal and vector management advice.",
+      "source_reference": "ICAR-IIHR / DPPQS Tomato Leaf Curl IPM Guidelines"
+    },
+    {
+      "id": "maize_fall_armyworm",
+      "crop": "maize",
+      "condition": "Fall Armyworm",
+      "type": "pest",
+      "aliases": [
+        "fall armyworm",
+        "army worm",
+        "Maize Fall Armyworm",
+        "Corn Fall Armyworm",
+        "Spodoptera frugiperda"
+      ],
+      "symptoms": [
+        "Ragged elongated 'window-pane' feeding holes in whorl leaves with abundant sawdust-like moist frass inside the funnel.",
+        "Caterpillar has an inverted 'Y' marking on the head capsule and four square-arranged dark spots on the tail segment."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% whorl-damaged plants with early pin-hole scraping.",
+        "moderate": "5%–10% whorl damage during early seedling-to-knee-high stage (ETL ~5–10% whorl infestation).",
+        "severe": "> 10%–20% damaged whorls or cob/tassel boring by late-instar larvae."
+      },
+      "cultural_organic_control": [
+        "Install FAW pheromone traps (4–5/acre) right after germination and hand-crush visible egg masses/neonates.",
+        "Apply dry sand + lime/soil mixture or neem cake/ash into leaf whorls in small plots for mechanical/contact larval deterrence.",
+        "Spray Azadirachtin 1500 ppm or Metarhizium anisopliae / Bacillus thuringiensis (Bt) directed straight into the whorl at egg hatch."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Chlorantraniliprole 18.5% SC or Spinetoram 11.7% SC or Emamectin benzoate 5% SG",
+          "target_stage": "Direct whorl-targeted spray when >5–10% plants show fresh whorl damage",
+          "cibrc_aligned_note": "ICAR-IIMR / DPPQS ad-hoc CIB&RC recommended molecules for Fall Armyworm in maize.",
+          "safety_warning": "Target spray nozzle directly into leaf whorls during morning/evening hours; avoid spraying at peak bee pollen shedding. Verify exact label dilution and PHI with local KVK."
+        }
+      ],
+      "region_notes": {
+        "general": "Invasive polyphagous pest capable of defoliating maize within days if missed in the seedling-to-knee-high whorl stage.",
+        "Karnataka, Maharashtra, Telangana, MP & Bihar": "High year-round pressure across Kharif, Rabi, and Spring maize belts."
+      },
+      "kvk_escalation_trigger": "Escalate immediately to KVK if >15% whorls are heavily shredded or larvae begin boring into developing cobs.",
+      "source_reference": "ICAR-IIMR / DPPQS Fall Armyworm Management Advisory"
+    },
+    {
+      "id": "maize_northern_leaf_blight",
+      "crop": "maize",
+      "condition": "Maize Northern Corn Leaf Blight",
+      "type": "disease",
+      "aliases": [
+        "Corn_(maize)___Northern_Leaf_Blight",
+        "Northern Corn Leaf Blight",
+        "Northern leaf blight",
+        "Turcicum leaf blight",
+        "Exserohilum turcicum"
+      ],
+      "symptoms": [
+        "Long, cigar-shaped (elliptical) greyish-green to tan lesions (2.5–15 cm) running parallel to leaf veins.",
+        "Lesions coalesce to scorch whole lower leaves, starving grain fill if upper ear-leaf is hit."
+      ],
+      "severity_thresholds": {
+        "low": "< 5% leaf area affected restricted to lowest 2–3 leaves.",
+        "moderate": "5%–20% leaf area affected reaching middle leaves before tasseling.",
+        "severe": "> 20% blight on ear leaf and upper foliage between tasseling and grain fill."
+      },
+      "cultural_organic_control": [
+        "Adopt resistant single-cross maize hybrids and practice deep ploughing/removal of infected maize stubble after harvest.",
+        "Rotate maize with non-host legumes or oilseeds to break residue-borne inoculum.",
+        "Maintain balanced potassium fertilization to improve foliar disease tolerance."
+      ],
+      "approved_chemical_options": [
+        {
+          "active_ingredient": "Mancozeb 75% WP or Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
+          "target_stage": "Protective spray if cigar-shaped lesions climb toward the ear leaf around pre-tasseling/silking",
+          "cibrc_aligned_note": "CIB&RC-aligned fungicide options for Turcicum leaf blight in maize.",
+          "safety_warning": "Verify exact CIB&RC label dilution, PHI, and safety equipment guidance with local KVK/DAO before spraying."
+        }
+      ],
+      "region_notes": {
+        "general": "Favored by moderate temperatures (18–27°C) and prolonged heavy dew or monsoon rains.",
+        "Karnataka, Himachal, Bihar & J&K": "Endemic in humid hill regions and winter/Rabi maize pockets."
+      },
+      "kvk_escalation_trigger": "Escalate to KVK if cigar-shaped lesions reach the ear leaf before silking/grain filling.",
+      "source_reference": "ICAR-IIMR / DPPQS Maize Disease Management Package"
+    }
+  ]
+}

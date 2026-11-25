@@ -1,0 +1,29 @@
+# ExecuTorch Export Configuration for Llama 3.2 1B-Instruct (Arm CPU: XNNPACK + KleidiAI)
+# Compatible with: python3 -m executorch.extension.llm.export.export_llm --config <this_file>
+
+base:
+  model_class: "llama3_2"
+  checkpoint: null
+  params: null
+  tokenizer_path: null
+  metadata: '{"get_bos_id":128000,"get_eos_ids":[128009,128001]}'
+
+model:
+  use_kv_cache: true
+  use_sdpa_with_kv_cache: true
+  max_seq_length: 1024
+  max_context_length: 1024
+  dtype_override: "fp32"
+
+quantization:
+  qmode: "torchao:8da4w"
+  group_size: 64
+  embedding_quantize: "4,32"
+
+backend:
+  xnnpack:
+    enabled: true
+    extended_multipass: true
+
+export:
+  output_name: "llama3_2_1b_xnnpack_8da4w.pte"

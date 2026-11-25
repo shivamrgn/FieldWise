@@ -1,0 +1,82 @@
+{
+  "platform_metadata": {
+    "os": "Darwin",
+    "os_release": "25.6.0",
+    "cpu_arch": "arm64",
+    "processor": "arm",
+    "python_version": "3.13.5",
+    "host_platform": "Darwin-arm64",
+    "vision_backend": "huggingface_local_offline",
+    "advisory_backend": "test_stub_ci_only",
+    "is_stub_advisory": true,
+    "vision_weights_trained": true,
+    "vision_model_source": "linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification (38-class MobileNetV2 PlantVillage @ ps1_offline_assistant/vision/artifacts/pretrained_hf)",
+    "image_source": "synthetic_320x320_leaf_25pct_lesion",
+    "warmup_runs": 1,
+    "timed_runs": 5,
+    "language_switch_used_seeded_confident_finding": true
+  },
+  "latency_and_throughput": {
+    "vision_latency_ms": {
+      "mean": 32.8133,
+      "p50": 32.5457,
+      "p95": 33.5853
+    },
+    "advisory_ttft_ms": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "advisory_tokens_per_sec": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "end_to_end_latency_ms": {
+      "mean": 32.9631,
+      "p50": 32.6899,
+      "p95": 33.7626
+    }
+  },
+  "language_switch_benchmark": {
+    "vision_re_executed": false,
+    "per_transition_ms": {
+      "en->hi": 2.7802,
+      "hi->gu": 1.5154,
+      "gu->mr": 1.452
+    },
+    "summary_ms": {
+      "mean": 1.9159,
+      "p50": 1.5154,
+      "p95": 2.6537
+    },
+    "advisory_ttft_ms": {
+      "mean": 12.5,
+      "p50": 12.5,
+      "p95": 12.5
+    },
+    "advisory_tokens_per_sec": {
+      "mean": 42.0,
+      "p50": 42.0,
+      "p95": 42.0
+    }
+  },
+  "memory_and_storage": {
+    "peak_rss_mb": 360.703,
+    "artifact_footprint": {
+      "agri_kb_bytes": 60926,
+      "agri_kb_kb": 59.5,
+      "vision_model_bytes": 20105611,
+      "vision_model_mb": 19.174,
+      "llama_pte_bytes": null,
+      "llama_pte_mb": null,
+      "total_measured_bytes": 20166537,
+      "total_measured_mb": 19.232
+    }
+  },
+  "arm_thermal_and_power": {
+    "cpu_temp_c": null,
+    "vcgencmd_temp_c": null,
+    "vcgencmd_pmic_raw": null
+  }
+}

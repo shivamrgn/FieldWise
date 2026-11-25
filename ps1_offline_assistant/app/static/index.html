@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldWise — Offline Agricultural AI Assistant</title>
+  <style>
+    :root {
+      --bg: #f0f7f2;
+      --surface: #ffffff;
+      --forest-900: #0d3320;
+      --forest-800: #14532d;
+      --forest-700: #166534;
+      --forest-600: #16a34a;
+      --forest-500: #22c55e;
+      --forest-100: #dcfce7;
+      --forest-50: #f0fdf4;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --red-100: #fee2e2;
+      --red-700: #b91c1c;
+      --blue-50: #eff6ff;
+      --blue-200: #bfdbfe;
+      --blue-700: #1d4ed8;
+      --border: #c9e0d4;
+      --text: #111827;
+      --text-secondary: #374151;
+      --muted: #4b7563;
+      --radius-sm: 8px;
+      --radius: 14px;
+      --shadow-sm: 0 1px 3px rgba(16,59,34,.07);
+      --shadow: 0 2px 10px rgba(16,59,34,.10);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; width: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans",
+        "Noto Sans Devanagari", "Noto Sans Gujarati", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .topbar {
+      background: linear-gradient(135deg, var(--forest-900) 0%, var(--forest-700) 100%);
+      color: #fff;
+      box-shadow: 0 3px 12px rgba(0,0,0,.18);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-inner {
+      max-width: 1100px; margin: 0 auto; padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-logo {
+      width: 38px; height: 38px; flex-shrink: 0; background: rgba(255,255,255,.18);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    }
+    .brand-name { font-size: 1.08rem; font-weight: 800; line-height: 1.2; }
+    .brand-tagline { font-size: 0.72rem; opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .lang-select {
+      min-height: 40px; padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.94);
+      color: var(--forest-900); font-weight: 700; font-size: 0.9rem; cursor: pointer;
+    }
+
+    /* TAB NAV */
+    .tab-nav {
+      max-width: 1100px; margin: 14px auto 0; padding: 0 16px;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;
+    }
+    .tab-btn {
+      min-height: 46px; padding: 10px 12px; border-radius: 11px;
+      border: 1.5px solid var(--border); background: var(--surface); color: var(--forest-800);
+      font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: var(--shadow-sm);
+      display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center;
+      transition: background .15s, color .15s;
+    }
+    .tab-btn.active { background: var(--forest-700); color: #fff; border-color: var(--forest-800); }
+    .tab-btn:hover:not(.active) { background: var(--forest-50); border-color: var(--forest-600); }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 14px auto 36px; padding: 0 16px; display: grid; gap: 16px; }
+    .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+    .two-col > *, .tab-panel > * { min-width: 0; }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* CARDS */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+    .card-title { font-size: 1.08rem; font-weight: 800; color: var(--forest-800); display: flex; align-items: center; gap: 9px; margin-bottom: 16px; }
+    .card-title small { font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+
+    /* UPLOAD */
+    .upload-hero {
+      border: 2.5px dashed var(--border); border-radius: var(--radius); background: var(--forest-50);
+      min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; cursor: pointer; transition: border-color .2s, background .2s; padding: 20px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .upload-hero:hover { border-color: var(--forest-600); background: #e8f8ed; }
+    .upload-hero input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon { font-size: 2.4rem; line-height: 1; }
+    .upload-title { font-weight: 700; color: var(--forest-800); font-size: 1rem; }
+    .upload-hint { font-size: 0.82rem; color: var(--muted); }
+    .upload-hero.has-preview { padding: 0; min-height: 240px; }
+    .upload-hero.has-preview img { width: 100%; max-height: 320px; object-fit: contain; border-radius: calc(var(--radius) - 2px); display: block; }
+    .preview-change { position: absolute; bottom: 10px; right: 10px; }
+    .btn-sm {
+      padding: 6px 13px; border-radius: 7px; border: 1px solid rgba(255,255,255,.8);
+      background: rgba(255,255,255,.88); font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    /* FORMS */
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 6px; }
+    .field select, .field input[type="number"], .field input[type="text"] {
+      width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: #fff; font-size: 0.95rem; color: var(--text);
+    }
+    .field select:focus, .field input:focus { outline: none; border-color: var(--forest-600); }
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 480px) { .input-row { grid-template-columns: 1fr; } }
+
+    /* BUTTONS */
+    .btn-primary {
+      width: 100%; padding: 14px 20px; border: none; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--forest-700), var(--forest-600)); color: #fff;
+      font-size: 1.02rem; font-weight: 800; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(22,101,52,.30);
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      transition: opacity .15s, transform .1s;
+    }
+    .btn-primary:hover:not(:disabled) { opacity: .93; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-secondary {
+      padding: 10px 18px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      background: #fff; color: var(--forest-800); font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    }
+    .btn-secondary:hover { background: var(--forest-50); border-color: var(--forest-600); }
+
+    /* BANNERS */
+    .banner { padding: 13px 16px; border-radius: var(--radius-sm); border-left: 5px solid var(--forest-600); background: var(--forest-100); color: var(--forest-900); font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
+    .banner.warn { background: var(--amber-100); border-left-color: var(--amber-600); color: #78350f; }
+    .banner.info { background: var(--blue-50); border-left-color: #3b82f6; color: var(--blue-700); font-size: 0.85rem; }
+
+    /* LOADING */
+    .loading-box { margin-top: 12px; padding: 14px 16px; border-radius: var(--radius-sm); background: var(--forest-50); border: 1px solid var(--border); color: var(--forest-800); font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; gap: 10px; }
+    .spinner { width: 20px; height: 20px; border: 3px solid var(--border); border-top-color: var(--forest-600); border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ERRORS */
+    .error-msg { margin-top: 10px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--red-100); border: 1.5px solid #fca5a5; color: var(--red-700); font-size: 0.9rem; font-weight: 600; }
+
+    /* RESULTS */
+    .status-banner { padding: 14px 18px; border-radius: var(--radius-sm); font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .status-banner.success { background: var(--forest-100); color: var(--forest-900); border-left: 5px solid var(--forest-600); }
+    .status-banner.healthy { background: #d1fae5; color: #065f46; border-left: 5px solid #10b981; }
+    .status-banner.uncertain { background: var(--amber-100); color: #78350f; border-left: 5px solid var(--amber-600); }
+    .status-banner.severe { background: var(--red-100); color: var(--red-700); border-left: 5px solid #dc2626; }
+
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .metric-tile { padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--forest-50); }
+    .metric-label { font-size: 0.72rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+    .metric-value { font-size: 1.05rem; font-weight: 800; color: var(--text); }
+    .conf-bar-wrap { margin-top: 5px; height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; }
+    .conf-bar { height: 100%; border-radius: 3px; transition: width .4s ease; }
+
+    .sev-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; }
+    .sev-low { background: #dcfce7; color: #14532d; }
+    .sev-moderate { background: var(--amber-100); color: #78350f; }
+    .sev-severe { background: var(--red-100); color: var(--red-700); }
+    .sev-undetermined { background: #e2e8f0; color: #334155; }
+
+    /* ADVISORY BLOCKS */
+    .advisory-block { border-radius: 10px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 10px; }
+    .advisory-block-header { padding: 10px 16px; font-weight: 700; font-size: 0.88rem; display: flex; align-items: center; gap: 8px; background: var(--forest-50); border-bottom: 1px solid var(--border); color: var(--forest-800); }
+    .advisory-block-body { padding: 14px 16px; font-size: 0.93rem; color: var(--text-secondary); }
+    .advisory-block-body ul { padding-left: 18px; }
+    .advisory-block-body li { margin-bottom: 6px; }
+    .advisory-block-body p { margin: 0; line-height: 1.6; }
+    .chem-block { background: #fffbeb; border-color: #fcd34d; }
+    .chem-block .advisory-block-header { background: #fef3c7; border-bottom-color: #fcd34d; color: #78350f; }
+
+    .kvk-block { background: #fff1f2; border: 2px solid #fca5a5; border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; margin-top: 14px; }
+    .kvk-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .kvk-text { font-size: 0.92rem; font-weight: 600; color: var(--red-700); }
+    .kvk-num { font-size: 1.1rem; font-weight: 800; display: block; margin-top: 3px; }
+
+    .disclaimer-box { padding: 11px 14px; border-radius: var(--radius-sm); background: var(--blue-50); border: 1px solid var(--blue-200); color: var(--blue-700); font-size: 0.84rem; }
+
+    /* LANG BAR */
+    .lang-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; background: var(--forest-50); border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; }
+    .lang-label { font-size: 0.84rem; font-weight: 700; color: var(--muted); }
+    .lang-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+    .lang-btn { padding: 7px 16px; border-radius: 8px; border: 1.5px solid var(--border); background: #fff; color: var(--forest-800); font-weight: 700; font-size: 0.88rem; cursor: pointer; }
+    .lang-btn.active { background: var(--forest-700); color: #fff; border-color: var(--forest-800); }
+
+    /* TELEMETRY */
+    .telemetry-strip { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 10px; margin-top: 14px; }
+
+    /* RESULTS LAYOUT */
+    .results-top { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: start; }
+    @media (max-width: 600px) { .results-top { grid-template-columns: 1fr; } }
+    .result-image { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); background: var(--forest-50); }
+
+    /* V2 REC */
+    .rec-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px; background: var(--forest-50); margin-bottom: 10px; }
+    .rec-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .rec-name { font-size: 1.05rem; font-weight: 800; color: var(--forest-800); }
+    .score-pill { padding: 4px 13px; border-radius: 999px; background: var(--forest-100); color: var(--forest-900); font-weight: 700; font-size: 0.88rem; }
+    .score-pill.tier-high { background: #bbf7d0; color: #064e3b; }
+    .score-pill.tier-mid { background: var(--amber-100); color: #78350f; }
+
+    /* HISTORY */
+    details summary { cursor: pointer; font-weight: 700; color: var(--forest-800); padding: 4px 0; }
+    .table-wrap { overflow-x: auto; margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--forest-50); color: var(--forest-900); font-weight: 700; white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+
+    /* SUPPORTED CROPS */
+    .crops-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .crop-badge { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 600; background: var(--forest-50); color: var(--forest-800); }
+
+    /* MISC */
+    .hidden { display: none !important; }
+    .tab-panel { display: grid; gap: 16px; }
+    .section-header { font-size: 0.95rem; font-weight: 700; color: var(--forest-800); margin-bottom: 10px; }
+    .app-footer {
+      max-width: 1100px; margin: 0 auto 24px; padding: 0 16px;
+      text-align: center; font-size: 0.78rem; color: var(--muted);
+    }
+
+    /* PHONE RESPONSIVE */
+    @media (max-width: 760px) {
+      .two-col { grid-template-columns: 1fr; gap: 14px; }
+    }
+    @media (max-width: 600px) {
+      .topbar-inner { padding: 10px 12px; gap: 8px; }
+      .brand-logo { width: 34px; height: 34px; font-size: 1.15rem; }
+      .brand-name { font-size: 1rem; }
+      .brand-tagline { font-size: 0.68rem; }
+      .lang-select { font-size: 0.85rem; padding: 5px 8px; min-height: 38px; }
+
+      .tab-nav { padding: 0 12px; margin-top: 10px; gap: 6px; }
+      .tab-btn { font-size: 0.78rem; padding: 8px 6px; min-height: 44px; flex-direction: column; gap: 2px; line-height: 1.2; }
+
+      .container { padding: 0 12px; margin: 12px auto 28px; gap: 12px; }
+      .card { padding: 14px; border-radius: 12px; }
+      .card-title { font-size: 1rem; margin-bottom: 12px; flex-wrap: wrap; }
+
+      .upload-hero { min-height: 150px; padding: 16px; }
+      .upload-hero.has-preview { min-height: 180px; }
+      .upload-hero.has-preview img { max-height: 240px; }
+
+      .field select, .field input[type="number"], .field input[type="text"] {
+        font-size: 16px; min-height: 44px; padding: 10px 12px;
+      }
+      .btn-primary, .btn-secondary { min-height: 48px; font-size: 0.98rem; }
+
+      .results-top { grid-template-columns: 1fr; gap: 12px; }
+      .result-image { aspect-ratio: auto; max-height: 220px; object-fit: contain; }
+      .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .metric-tile { padding: 10px; }
+      .metric-value { font-size: 0.95rem; word-break: break-word; }
+
+      .lang-bar { flex-direction: column; align-items: stretch; padding: 10px 12px; }
+      .lang-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+      .lang-btn { min-height: 42px; padding: 8px 10px; text-align: center; }
+
+      .advisory-block-header { padding: 9px 12px; }
+      .advisory-block-body { padding: 12px; font-size: 0.9rem; }
+      .telemetry-strip { gap: 8px 14px; font-size: 0.74rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-logo">🌾</div>
+      <div>
+        <div class="brand-name">FieldWise</div>
+        <div class="brand-tagline">Offline Agricultural AI Assistant</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <select id="globalLangSelect" class="lang-select" aria-label="Language">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="gu">ગુજરાતી</option>
+        <option value="mr">मराठी</option>
+        <option value="te">తెలుగు</option>
+        <option value="ta">தமிழ்</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" type="button" data-tab="disease" id="tabBtnDisease">📷 Crop Disease Scan</button>
+  <button class="tab-btn" type="button" data-tab="recommend" id="tabBtnRecommend">🌱 Crop Recommendation</button>
+  <button class="tab-btn" type="button" data-tab="fertilizer" id="tabBtnFertilizer">💧 Fertilizer Guide</button>
+</nav>
+
+<main class="container">
+
+  <!-- TAB 1: SCAN -->
+  <div id="panel-disease" class="tab-panel">
+    <div id="untrainedBanner" class="banner warn hidden"></div>
+    <div id="advisoryModeBanner" class="banner info hidden"></div>
+
+    <div class="two-col">
+      <!-- Left -->
+      <div style="display:grid;gap:18px;">
+        <div class="card">
+          <div class="card-title">📷 Scan Your Crop <small>100% on-device · no internet</small></div>
+
+          <div class="upload-hero" id="uploadHero">
+            <input type="file" id="imageInput" accept="image/*" capture="environment" aria-label="Select crop photo" />
+            <div class="upload-icon">🍃</div>
+            <div class="upload-title">Tap to Upload or Capture Photo</div>
+            <div class="upload-hint">JPEG / PNG / WEBP · Max 16 MB</div>
+          </div>
+
+          <div class="input-row" style="margin-top:14px;">
+            <div class="field">
+              <label for="cropHintSelect">Crop (Optional)</label>
+              <select id="cropHintSelect">
+                <option value="auto" selected>Auto-detect from photo (38 PlantVillage classes)</option>
+                <optgroup label="Supported by Vision Model">
+                  <option value="tomato">Tomato</option><option value="potato">Potato</option>
+                  <option value="maize">Maize (Corn)</option><option value="bell pepper">Bell Pepper</option>
+                  <option value="apple">Apple</option><option value="grape">Grape</option>
+                  <option value="cherry">Cherry</option><option value="peach">Peach</option>
+                  <option value="orange">Orange</option><option value="strawberry">Strawberry</option>
+                  <option value="squash">Squash</option><option value="soybean">Soybean</option>
+                  <option value="blueberry">Blueberry</option><option value="raspberry">Raspberry</option>
+                </optgroup>
+                <optgroup label="Unsupported in PlantVillage Model (KVK / KB only)">
+                  <option value="rice">Rice</option><option value="wheat">Wheat</option>
+                  <option value="cotton">Cotton</option><option value="mango">Mango</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="field">
+              <label for="stateSelect">State / Region</label>
+              <select id="stateSelect">
+                <option>Punjab</option><option>Haryana</option><option>Uttar Pradesh</option>
+                <option>Madhya Pradesh</option><option>Maharashtra</option><option>Gujarat</option>
+                <option>Rajasthan</option><option>Bihar</option><option>West Bengal</option>
+                <option>Odisha</option><option>Karnataka</option><option>Andhra Pradesh</option>
+                <option>Telangana</option><option>Tamil Nadu</option><option>Assam</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="analyzeBtn" class="btn-primary" type="button" disabled style="margin-top:14px;">
+            🔍 Analyze Crop
+          </button>
+          <div id="analyzeLoadingBox" class="loading-box hidden">
+            <div class="spinner"></div>
+            <span>Running on-device PlantVillage vision &amp; offline advisory (first run may take ~15–25s)…</span>
+          </div>
+          <div id="errorBox" class="error-msg hidden"></div>
+        </div>
+
+        <div class="card">
+          <div class="section-header">🌿 Supported Crops (38 PlantVillage Classes)</div>
+          <div class="crops-grid">
+            <span class="crop-badge">🍎 Apple</span><span class="crop-badge">🍒 Cherry</span>
+            <span class="crop-badge">🌽 Maize</span><span class="crop-badge">🍇 Grape</span>
+            <span class="crop-badge">🍊 Orange</span><span class="crop-badge">🍑 Peach</span>
+            <span class="crop-badge">🫑 Bell Pepper</span><span class="crop-badge">🥔 Potato</span>
+            <span class="crop-badge">🍓 Strawberry</span><span class="crop-badge">🍅 Tomato</span>
+            <span class="crop-badge">🫐 Blueberry</span><span class="crop-badge">🫘 Soybean</span>
+            <span class="crop-badge">🥒 Squash</span><span class="crop-badge">🍓 Raspberry</span>
+          </div>
+          <p style="font-size:0.8rem;color:var(--muted);margin-top:10px;">MobileNetV2 offline (25 crop diseases, 12 healthy, 1 pest [Tomato Spider Mites] — not a general insect pest detector)</p>
+        </div>
+      </div>
+
+      <!-- Right: Results -->
+      <div>
+        <div class="card" id="resultsPlaceholder">
+          <div style="text-align:center;padding:40px 20px;color:var(--muted);">
+            <div style="font-size:3rem;margin-bottom:12px;">🔬</div>
+            <div style="font-weight:700;font-size:1rem;color:var(--forest-800);">Diagnosis results will appear here</div>
+            <div style="font-size:0.85rem;margin-top:6px;">Upload a crop or leaf photo and tap <strong>Analyze Crop</strong></div>
+          </div>
+        </div>
+
+        <div id="resultsContent" class="hidden" style="display:grid;gap:14px;">
+          <div class="lang-bar">
+            <span class="lang-label">Switch Language (instant, no re-analysis):</span>
+            <div class="lang-buttons" id="langSwitcher">
+              <button class="lang-btn" type="button" data-lang="en">English</button>
+              <button class="lang-btn" type="button" data-lang="hi">हिन्दी</button>
+              <button class="lang-btn" type="button" data-lang="gu">ગુજરાતી</button>
+              <button class="lang-btn" type="button" data-lang="mr">मराठी</button>
+              <button class="lang-btn" type="button" data-lang="te">తెలుగు</button>
+              <button class="lang-btn" type="button" data-lang="ta">தமிழ்</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div id="statusBanner" class="status-banner success"></div>
+
+            <div class="results-top">
+              <img id="resultImage" class="result-image" src="" alt="Analyzed crop" />
+              <div>
+                <div class="metrics-grid">
+                  <div class="metric-tile">
+                    <div class="metric-label">Crop</div>
+                    <div class="metric-value" id="valCrop">—</div>
+                  </div>
+                  <div class="metric-tile">
+                    <div class="metric-label">Detected Condition</div>
+                    <div class="metric-value" id="valCondition">—</div>
+                  </div>
+                  <div class="metric-tile">
+                    <div class="metric-label">Category</div>
+                    <div class="metric-value" id="valCategory">—</div>
+                  </div>
+                  <div class="metric-tile">
+                    <div class="metric-label">Severity</div>
+                    <div class="metric-value"><span id="valSeverity" class="sev-badge">—</span></div>
+                  </div>
+                </div>
+                <div class="metric-tile" style="margin-top:0;">
+                  <div class="metric-label">Model Confidence</div>
+                  <div class="metric-value" id="valConfidence">—</div>
+                  <div class="conf-bar-wrap"><div class="conf-bar" id="confBar" style="width:0%;"></div></div>
+                </div>
+                <div class="metric-tile">
+                  <div class="metric-label">Estimated Discolored Area <small style="font-weight:400;text-transform:none;">(HSV/Lab visual estimate)</small></div>
+                  <div class="metric-value" id="valInfected">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="topPredsBlock" class="advisory-block hidden" style="margin-top:12px;">
+              <div class="advisory-block-header">📊 Top Model Predictions (MobileNetV2 Softmax)</div>
+              <div class="advisory-block-body"><ul id="listTopPreds" style="list-style:none;padding-left:0;margin:0;"></ul></div>
+            </div>
+
+            <div id="kvkBlock" class="kvk-block hidden">
+              <div class="kvk-icon">🚨</div>
+              <div class="kvk-text">
+                Severe condition detected — expert consultation strongly recommended.
+                <span class="kvk-num">📞 Kisan Call Center: 1800-180-1551</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advisory -->
+          <div class="card">
+            <div class="card-title">📋 Agricultural Advisory</div>
+
+            <div class="advisory-block" id="blockExplanation">
+              <div class="advisory-block-header">📖 Assessment Summary</div>
+              <div class="advisory-block-body"><p id="valExplanation"></p></div>
+            </div>
+
+            <div class="advisory-block hidden" id="symptomsBlock">
+              <div class="advisory-block-header">🔍 Observed Symptoms (from KB)</div>
+              <div class="advisory-block-body"><ul id="listSymptoms"></ul></div>
+            </div>
+
+            <div class="advisory-block hidden" id="blockRegional">
+              <div class="advisory-block-header">📍 Region-Specific Notes</div>
+              <div class="advisory-block-body"><p id="valRegional"></p></div>
+            </div>
+
+            <div class="advisory-block" id="blockImmediate">
+              <div class="advisory-block-header">⚡ Immediate Actions</div>
+              <div class="advisory-block-body"><ul id="listImmediate"></ul></div>
+            </div>
+
+            <div class="advisory-block" id="blockOrganic">
+              <div class="advisory-block-header">🌿 Organic & Cultural Control</div>
+              <div class="advisory-block-body"><ul id="listOrganic"></ul></div>
+            </div>
+
+            <div class="advisory-block chem-block hidden" id="blockChemical">
+              <div class="advisory-block-header">⚗️ Approved Chemical Guidance</div>
+              <div class="advisory-block-body"><ul id="listChemical"></ul></div>
+            </div>
+
+            <div class="advisory-block" id="blockPreventive">
+              <div class="advisory-block-header">🛡️ Preventive Measures</div>
+              <div class="advisory-block-body"><ul id="listPreventive"></ul></div>
+            </div>
+
+            <div class="disclaimer-box" style="margin-top:14px;">
+              <strong>⚠️ Safety Disclaimer:</strong> <span id="valDisclaimer"></span>
+            </div>
+
+            <div class="telemetry-strip">
+              <span><strong>Vision:</strong> <span id="telVision">—</span> ms</span>
+              <span><strong>Advisory TTFT:</strong> <span id="telTtft">—</span> ms</span>
+              <span><strong>Decode:</strong> <span id="telTps">—</span> tok/s</span>
+              <span><strong>Total:</strong> <span id="telE2e">—</span> ms</span>
+              <span><strong>Backend:</strong> <span id="telBackend">—</span></span>
+            </div>
+          </div>
+
+          <button class="btn-secondary" type="button" id="analyzeNewBtn" style="width:100%;">
+            📷 Analyze Another Image
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="card">
+      <details id="historyDetails">
+        <summary>📋 Local Field Scan History (Offline Log)</summary>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Time (UTC)</th><th>State</th><th>Lang</th><th>Crop</th><th>Condition</th><th>Severity</th><th>Status</th></tr></thead>
+            <tbody id="historyBody"><tr><td colspan="7">Open panel to load local offline history…</td></tr></tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </div><!-- /panel-scan -->
+
+  <!-- TAB 2: CROP RECOMMENDATION -->
+  <div id="panel-recommend" class="tab-panel hidden">
+    <div class="card">
+      <div class="card-title">🌱 Offline Crop Recommendation <small>FieldWise V2 Engine</small></div>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Deterministic agronomic eligibility scoring across 19 Indian crops. 100% offline.</p>
+      <div class="input-row">
+        <div class="field">
+          <label for="recState">State (Mandatory)</label>
+          <select id="recState">
+            <option>Punjab</option><option>Haryana</option><option>Uttar Pradesh</option>
+            <option>Madhya Pradesh</option><option>Maharashtra</option><option>Gujarat</option>
+            <option>Rajasthan</option><option>Bihar</option><option>West Bengal</option>
+            <option>Odisha</option><option>Karnataka</option><option>Andhra Pradesh</option>
+            <option>Telangana</option><option>Tamil Nadu</option><option>Assam</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="recMonth">Planned Sowing Month</label>
+          <select id="recMonth">
+            <option value="1">1 — January</option><option value="2">2 — February</option>
+            <option value="3">3 — March</option><option value="4">4 — April</option>
+            <option value="5">5 — May</option><option value="6" selected>6 — June (Kharif)</option>
+            <option value="7">7 — July</option><option value="8">8 — August</option>
+            <option value="9">9 — September</option><option value="10">10 — October (Rabi)</option>
+            <option value="11">11 — November</option><option value="12">12 — December</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="recSoil">Soil Texture</label>
+          <select id="recSoil">
+            <option value="">Unknown</option>
+            <option value="Loamy" selected>Loamy</option><option value="Sandy">Sandy</option>
+            <option value="Clay">Clay</option><option value="Sandy_Loam">Sandy Loam</option>
+            <option value="Silty_Loam">Silty Loam</option><option value="Clay_Loam">Clay Loam</option>
+            <option value="Black_Cotton">Black Cotton</option><option value="Red_Laterite">Red Laterite</option>
+            <option value="Alluvial">Alluvial</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="recIrrigation">Irrigation Access</label>
+          <select id="recIrrigation">
+            <option value="">Unknown</option>
+            <option value="Tubewell_Borewell" selected>Tubewell / Borewell</option>
+            <option value="None_Rainfed">Rainfed Only</option>
+            <option value="Canal_Gravity">Canal Gravity</option>
+            <option value="Drip_Micro">Drip Micro-Irrigation</option>
+            <option value="Sprinkler">Sprinkler</option>
+          </select>
+        </div>
+        <div class="field"><label for="recPh">Soil pH</label><input type="number" id="recPh" min="3" max="11" step="0.1" value="6.8" placeholder="e.g. 6.8" /></div>
+        <div class="field"><label for="recTemp">Mean Temperature (°C)</label><input type="number" id="recTemp" value="28" placeholder="e.g. 28" /></div>
+        <div class="field"><label for="recRain">Seasonal Rainfall (mm)</label><input type="number" id="recRain" value="600" placeholder="e.g. 600" /></div>
+        <div class="field"><label for="recHumidity">Relative Humidity (%)</label><input type="number" id="recHumidity" min="0" max="100" value="72" placeholder="e.g. 72" /></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin:10px 0 14px;font-size:0.9rem;font-weight:600;color:var(--forest-800);">
+        <input type="checkbox" id="recHasShc" />
+        <label for="recHasShc" id="lblRecShc">I have a Soil Health Card (SHC) with NPK values</label>
+      </div>
+      <div class="input-row" id="shcFields" style="display:none;">
+        <div class="field"><label for="recN">Soil Nitrogen (kg/ha)</label><input type="number" id="recN" value="280" placeholder="e.g. 280" /></div>
+        <div class="field"><label for="recP">Soil Phosphorus (kg/ha)</label><input type="number" id="recP" value="24" placeholder="e.g. 24" /></div>
+        <div class="field"><label for="recK">Soil Potassium (kg/ha)</label><input type="number" id="recK" value="190" placeholder="e.g. 190" /></div>
+      </div>
+      <button class="btn-primary" type="button" id="recSubmitBtn">🌱 Get Crop Recommendations</button>
+      <div id="recError" class="error-msg hidden"></div>
+    </div>
+    <div id="recResults" class="hidden">
+      <div class="card">
+        <div class="card-title">Recommended Crops</div>
+        <div id="recResultsBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: FERTILIZER -->
+  <div id="panel-fertilizer" class="tab-panel hidden">
+    <div class="card">
+      <div class="card-title" id="fertCardTitle">💧 Fertilizer & Irrigation Advisory <small>Offline KB</small></div>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Area-scaled fertilizer schedule from verified ICAR knowledge base. 100% offline.</p>
+      <div class="input-row">
+        <div class="field">
+          <label for="fertCrop" id="lblFertCrop">Crop</label>
+          <select id="fertCrop">
+            <option value="rice" selected>Rice (Paddy)</option>
+            <option value="wheat">Wheat</option>
+            <option value="maize">Maize (Corn)</option>
+            <option value="cotton">Cotton</option>
+            <option value="sugarcane">Sugarcane</option>
+            <option value="soybean">Soybean</option>
+            <option value="groundnut">Groundnut</option>
+            <option value="potato">Potato</option>
+            <option value="chickpea">Chickpea (Chana)</option>
+            <option value="lentil">Lentil (Masoor)</option>
+            <option value="mustard">Mustard</option>
+            <option value="tomato">Tomato</option>
+            <option value="onion">Onion</option>
+            <option value="banana">Banana</option>
+            <option value="mango">Mango</option>
+            <option value="jowar">Jowar (Sorghum)</option>
+          </select>
+        </div>
+        <div class="field"><label for="fertArea" id="lblFertArea">Field Area</label><input type="number" id="fertArea" min="0.01" step="0.01" value="1.0" /></div>
+        <div class="field"><label for="fertUnit">Unit</label><select id="fertUnit"><option value="ha">Hectares (ha)</option><option value="acres">Acres</option></select></div>
+      </div>
+      <button class="btn-primary" type="button" id="fertSubmitBtn">💧 Get Fertilizer Schedule</button>
+      <div id="fertError" class="error-msg hidden"></div>
+    </div>
+    <div id="fertResults" class="hidden">
+      <div class="card">
+        <div class="card-title" id="fertResultTitle">Fertilizer Schedule</div>
+        <div id="fertResultsBody"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<footer class="app-footer">FieldWise · OFFLINE MODE · 100% On-Device Inference</footer>
+
+<script>
+"use strict";
+(() => {
+  /* ── State ── */
+  let currentImageBase64 = null;
+  let activeSessionId    = null;
+  let currentLang        = "en";
+  let lastV2Result       = null;
+
+  /* ── Helpers ── */
+  const $  = id => document.getElementById(id);
+  const se = (el, v) => { if (el) el.textContent = v || "—"; };
+  const te = (id, v) => se($(id), v);
+  const show = el => el && el.classList.remove("hidden");
+  const hide = el => el && el.classList.add("hidden");
+  function showErr(el, msg) { el.textContent = msg; show(el); }
+  function setList(id, items) {
+    const el = $(id); if (!el) return; el.innerHTML = "";
+    (items || []).forEach(t => { const li = document.createElement("li"); li.textContent = t; el.appendChild(li); });
+  }
+  function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+  /* ── Tab switching ── */
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.add("hidden"));
+      btn.classList.add("active");
+      $("panel-" + btn.dataset.tab).classList.remove("hidden");
+      if (btn.dataset.tab === "fertilizer" && $("fertResults").classList.contains("hidden")) {
+        loadFertilizerGuide();
+      }
+    });
+  });
+
+  /* ── SHC toggle ── */
+  $("recHasShc").addEventListener("change", e => {
+    $("shcFields").style.display = e.target.checked ? "grid" : "none";
+  });
+
+  /* ── Image input ── */
+  function openFilePicker() {
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = "image/*"; inp.capture = "environment";
+    inp.addEventListener("change", () => { if (inp.files && inp.files[0]) handleFile(inp.files[0]); });
+    inp.click();
+  }
+
+  $("imageInput").addEventListener("change", () => {
+    const inp = $("imageInput");
+    const f = inp.files && inp.files[0];
+    if (f) { handleFile(f); inp.value = ""; }
+  });
+
+  const uploadHero = $("uploadHero");
+  uploadHero.addEventListener("click", ev => {
+    if (ev.target && ev.target.tagName === "INPUT") return;
+    openFilePicker();
+  });
+  uploadHero.addEventListener("dragover", e => { e.preventDefault(); uploadHero.classList.add("drag-over"); });
+  uploadHero.addEventListener("dragleave", () => uploadHero.classList.remove("drag-over"));
+  uploadHero.addEventListener("drop", e => {
+    e.preventDefault(); uploadHero.classList.remove("drag-over");
+    const f = e.dataTransfer.files[0]; if (f) handleFile(f);
+  });
+
+  function handleFile(file) {
+    hide($("errorBox"));
+    if (file.size > 16 * 1024 * 1024) { showErr($("errorBox"), "Image too large (max 16 MB). Please resize."); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      currentImageBase64 = ev.target.result;
+      uploadHero.classList.add("has-preview");
+      uploadHero.innerHTML =
+        `<img src="${currentImageBase64}" alt="Crop preview" />
+         <div class="preview-change"><button class="btn-sm" id="changeBtn" type="button">🔄 Change</button></div>`;
+      $("changeBtn").addEventListener("click", ev2 => {
+        ev2.preventDefault();
+        ev2.stopPropagation();
+        openFilePicker();
+      });
+      $("analyzeBtn").disabled = false;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ── Analyze ── */
+  $("analyzeBtn").addEventListener("click", async () => {
+    if (!currentImageBase64) return;
+    hide($("errorBox"));
+    $("analyzeBtn").disabled = true;
+    show($("analyzeLoadingBox"));
+    hide($("resultsContent"));
+    show($("resultsPlaceholder"));
+
+    try {
+      const resp = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          image_base64: currentImageBase64,
+          state_region: $("stateSelect").value,
+          crop_hint: $("cropHintSelect") ? $("cropHintSelect").value : "auto",
+          language: currentLang,
+        }),
+      });
+      const rawTxt = await resp.text();
+      let data;
+      try { data = JSON.parse(rawTxt); } catch (_) { throw new Error(rawTxt || `Server error (${resp.status})`); }
+      if (!resp.ok) throw new Error(data.error || "Analysis failed");
+      renderResult(data);
+    } catch (err) {
+      showErr($("errorBox"), "⚠️ " + err.message);
+    } finally {
+      hide($("analyzeLoadingBox"));
+      $("analyzeBtn").disabled = false;
+    }
+  });
+
+  /* ── Render result ── */
+  function renderResult(data) {
+    const vf   = data.vision_finding || {};
+    const adv  = data.advisory_response || {};
+    const meta = data.pipeline_metadata || {};
+
+    activeSessionId = data.session_id;
+    hide($("resultsPlaceholder"));
+    show($("resultsContent"));
+
+    /* Status banner */
+    const bannerEl = $("statusBanner");
+    const status = adv.status || "SUCCESS";
+    const cat = vf.category || "";
+    const diag = data.vision_diagnostics || {};
+    const dStatus = diag.diagnosis_status || "";
+    const confNum = typeof vf.confidence === "number" ? vf.confidence : 0;
+    const isConfidentUnmapped = status === "LOW_CONFIDENCE" && (cat === "disease" || cat === "pest") && confNum >= 0.65;
+    let icon = "✅", cls = "success", msg = "Diagnosis Complete";
+    if (dStatus === "non_leaf_image" || vf.condition_name === "non_leaf_or_no_plant") {
+      icon = "🚫"; cls = "uncertain"; msg = "No Plant Foliage Detected — Upload a clear crop leaf photo";
+    } else if (dStatus === "unsupported_crop") {
+      icon = "ℹ️"; cls = "uncertain"; msg = `Unsupported Crop (${cap(vf.crop || "")}) — Vision model covers 14 PlantVillage crops only`;
+    } else if (dStatus === "crop_mismatch_uncertain") {
+      icon = "🔍"; cls = "uncertain"; msg = `Crop Mismatch / Uncertain — Image matched a different crop than selected`;
+    } else if (dStatus === "ambiguous_multiple_conditions") {
+      icon = "⚖️"; cls = "uncertain"; msg = "Ambiguous Prediction — Close probabilities across multiple conditions";
+    } else if (status === "UNCERTAIN_IMAGE") {
+      icon = "🌫️"; cls = "uncertain"; msg = "Image Quality Issue — Please retake the photo";
+    } else if (isConfidentUnmapped) {
+      icon = "✅"; cls = "success"; msg = `Detected: ${cap(vf.crop || "")} — ${vf.condition_name || ""} (${(confNum * 100).toFixed(1)}% · Verify treatment at KVK)`;
+    } else if (status === "LOW_CONFIDENCE") {
+      icon = "🔍"; cls = "uncertain"; msg = "Low Confidence — Please retake or consult an expert";
+    } else if (status === "SEVERE_ESCALATION") {
+      icon = "🚨"; cls = "severe"; msg = "Severe Condition — Immediate expert consultation recommended";
+    } else if (cat === "healthy") {
+      icon = "🌿"; cls = "healthy"; msg = "Crop Appears Healthy";
+    }
+    bannerEl.className = "status-banner " + cls;
+    bannerEl.textContent = icon + " " + msg;
+
+    /* Image */
+    if (currentImageBase64) { $("resultImage").src = currentImageBase64; }
+
+    /* Metrics */
+    te("valCrop", cap(vf.crop || "unknown"));
+    te("valCondition", vf.condition_name || "—");
+    const catMap = { disease: "🦠 Disease", pest: "🐛 Pest", healthy: "✅ Healthy", unknown: "❓ Unknown" };
+    te("valCategory", catMap[cat] || cat || "—");
+
+    const sevEl = $("valSeverity");
+    const sev = vf.severity_level || "undetermined";
+    const sevMap = { low: "🟢 Low", moderate: "🟡 Moderate", severe: "🔴 Severe", undetermined: "⚪ N/A" };
+    sevEl.textContent = sevMap[sev] || sev;
+    sevEl.className = "sev-badge sev-" + sev;
+
+    const conf = typeof vf.confidence === "number" ? vf.confidence : 0;
+    te("valConfidence", (conf * 100).toFixed(1) + "%");
+    const bar = $("confBar");
+    bar.style.width = (conf * 100).toFixed(1) + "%";
+    bar.style.background = conf >= 0.75 ? "#16a34a" : conf >= 0.5 ? "#d97706" : "#dc2626";
+
+    const pct = typeof vf.infected_area_pct === "number" ? vf.infected_area_pct : 0;
+    te("valInfected", pct > 0 ? pct.toFixed(1) + "%" : "N/A");
+
+    /* Top Predictions */
+    const preds = Array.isArray(data.top_predictions) ? data.top_predictions : [];
+    if (preds.length) {
+      $("listTopPreds").innerHTML = preds.map((p, idx) =>
+        `<li style="display:flex;justify-content:space-between;gap:8px;margin-bottom:4px;font-size:0.86rem;">
+          <span>${idx + 1}. <strong>${p.label || (cap(p.crop) + " — " + p.condition_name)}</strong></span>
+          <span>${(Number(p.confidence || 0) * 100).toFixed(1)}%</span>
+        </li>`
+      ).join("");
+      show($("topPredsBlock"));
+    } else { hide($("topPredsBlock")); }
+
+    /* KVK */
+    adv.escalate_to_kvk ? show($("kvkBlock")) : hide($("kvkBlock"));
+
+    /* Advisory */
+    te("valExplanation", adv.explanation || "No explanation available.");
+    const symptomsList = Array.isArray(data.symptoms) ? data.symptoms : (data.kb_entry_symptoms || []);
+    if (symptomsList.length) {
+      setList("listSymptoms", symptomsList); show($("symptomsBlock"));
+    } else { hide($("symptomsBlock")); }
+    const regionalNote = data.regional_advisory || data.kb_entry_region_notes;
+    if (regionalNote) {
+      $("valRegional").textContent = regionalNote; show($("blockRegional"));
+    } else { hide($("blockRegional")); }
+    setList("listImmediate", adv.immediate_actions);
+    setList("listOrganic", adv.organic_cultural_steps);
+    if (adv.chemical_guidance_if_approved && adv.chemical_guidance_if_approved.length) {
+      setList("listChemical", adv.chemical_guidance_if_approved); show($("blockChemical"));
+    } else { hide($("blockChemical")); }
+    setList("listPreventive", adv.preventive_measures);
+    te("valDisclaimer", adv.disclaimer || "");
+
+    /* Telemetry */
+    te("telVision", meta.vision_latency_ms != null ? meta.vision_latency_ms.toFixed(1) : "—");
+    te("telTtft", meta.advisory_ttft_ms != null ? meta.advisory_ttft_ms.toFixed(1) : "—");
+    te("telTps", meta.advisory_tokens_per_sec != null ? meta.advisory_tokens_per_sec.toFixed(1) : "—");
+    te("telE2e", meta.end_to_end_latency_ms != null ? meta.end_to_end_latency_ms.toFixed(1) : "—");
+    te("telBackend", meta.vision_backend || "—");
+
+    /* Active lang btn */
+    document.querySelectorAll(".lang-btn").forEach(b => b.classList.toggle("active", b.dataset.lang === currentLang));
+  }
+
+  /* ── Language switch ── */
+  $("langSwitcher").addEventListener("click", async ev => {
+    const btn = ev.target.closest(".lang-btn");
+    if (!btn || !activeSessionId) return;
+    currentLang = btn.dataset.lang;
+    $("globalLangSelect").value = currentLang;
+    try {
+      const resp = await fetch("/api/switch-language", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: activeSessionId, new_language: currentLang, state_region: $("stateSelect").value }),
+      });
+      if (resp.ok) renderResult(await resp.json());
+    } catch (err) { showErr($("errorBox"), "Language switch failed: " + err.message); }
+  });
+
+  async function applyUiLanguage(lang) {
+    try {
+      const resp = await fetch(`/api/ui-bundle?lang=${encodeURIComponent(lang)}`);
+      if (!resp.ok) return;
+      const u = await resp.json();
+      if (u.tabs) {
+        if ($("tabBtnDisease")) $("tabBtnDisease").textContent = "📷 " + u.tabs.disease_scan;
+        if ($("tabBtnRecommend")) $("tabBtnRecommend").textContent = "🌱 " + u.tabs.crop_recommendation;
+        if ($("tabBtnFertilizer")) $("tabBtnFertilizer").textContent = "💧 " + u.tabs.fertilizer_advisory;
+      }
+      if (u.fert_ui) {
+        if ($("fertCardTitle")) $("fertCardTitle").textContent = "💧 " + u.fert_ui.title;
+        if ($("lblFertCrop")) $("lblFertCrop").textContent = u.fert_ui.select_crop;
+        if ($("lblFertArea")) $("lblFertArea").textContent = u.fert_ui.farm_area;
+        if ($("fertSubmitBtn")) $("fertSubmitBtn").textContent = "💧 " + u.fert_ui.submit_btn;
+      }
+      if (u.crop_rec_ui) {
+        if ($("recSubmitBtn")) $("recSubmitBtn").textContent = "🌱 " + u.crop_rec_ui.submit_btn;
+        if ($("lblRecShc")) $("lblRecShc").textContent = u.crop_rec_ui.has_soil_test;
+      }
+    } catch (e) { console.warn("UI bundle:", e.message); }
+  }
+
+  $("globalLangSelect").addEventListener("change", async () => {
+    currentLang = $("globalLangSelect").value;
+    await applyUiLanguage(currentLang);
+    if (activeSessionId) {
+      const targetBtn = Array.from(document.querySelectorAll(".lang-btn")).find(b => b.dataset.lang === currentLang);
+      if (targetBtn) targetBtn.click();
+    }
+    if (!$("fertResults").classList.contains("hidden")) loadFertilizerGuide();
+  });
+
+  /* ── Analyze new ── */
+  $("analyzeNewBtn").addEventListener("click", () => {
+    currentImageBase64 = null; activeSessionId = null;
+    $("analyzeBtn").disabled = true;
+    hide($("resultsContent")); show($("resultsPlaceholder")); hide($("errorBox"));
+    uploadHero.className = "upload-hero";
+    uploadHero.innerHTML = `<input type="file" id="imageInput" accept="image/*" capture="environment" />
+      <div class="upload-icon">🍃</div>
+      <div class="upload-title">Tap to Upload or Capture Photo</div>
+      <div class="upload-hint">JPEG / PNG / WEBP · Max 16 MB</div>`;
+    $("imageInput").addEventListener("change", () => { const f = $("imageInput").files[0]; if (f) handleFile(f); });
+  });
+
+  /* ── Health ── */
+  async function loadHealth() {
+    try {
+      const resp = await fetch("/api/health"); if (!resp.ok) return;
+      const h = await resp.json();
+      if (h.vision_weights_trained === false) {
+        $("untrainedBanner").textContent = "⚠️ Untrained smoke weights active — predictions are random. Run download_pretrained.py once then restart with --vision-backend hf-local.";
+        show($("untrainedBanner"));
+      }
+      if (h.advisory_is_stub) {
+        $("advisoryModeBanner").textContent = "ℹ️ Advisory: Vision + V2 Engine + ICAR KB are live. Deterministic KB fallback active (Llama 3.2 ExecuTorch requires Arm RPi target with .pte weights).";
+        show($("advisoryModeBanner"));
+      }
+      if (Array.isArray(h.available_crops)) {
+        const valid = h.available_crops.filter(c => c && c.id && c.name);
+        if (valid.length) {
+          const sel = $("fertCrop");
+          const prev = sel.value || "rice";
+          sel.innerHTML = "";
+          valid.forEach(c => { const o = document.createElement("option"); o.value = c.id; o.textContent = c.name; sel.appendChild(o); });
+          if (valid.some(c => c.id === prev)) sel.value = prev;
+        }
+      }
+    } catch (e) { console.warn("Health:", e.message); }
+  }
+
+  /* ── History ── */
+  async function loadHistory() {
+    try {
+      const resp = await fetch("/api/history"); if (!resp.ok) return;
+      const p = await resp.json();
+      const records = (p.records || []).slice(-20).reverse();
+      $("historyBody").innerHTML = "";
+      if (!records.length) { $("historyBody").innerHTML = "<tr><td colspan='7'>No field scans recorded yet.</td></tr>"; return; }
+      records.forEach(r => {
+        const tr = document.createElement("tr");
+        [r.timestamp_utc, r.state_region, r.language, r.crop, r.condition_name, r.severity_level, r.advisory_status].forEach(v => {
+          const td = document.createElement("td"); td.textContent = String(v || "—"); tr.appendChild(td);
+        });
+        $("historyBody").appendChild(tr);
+      });
+    } catch (err) { $("historyBody").innerHTML = `<tr><td colspan="7">Failed: ${err.message}</td></tr>`; }
+  }
+  $("historyDetails").addEventListener("toggle", () => { if ($("historyDetails").open) loadHistory(); });
+
+  /* ── V2 Recommendation ── */
+  $("recSubmitBtn").addEventListener("click", async () => {
+    hide($("recError"));
+    const f = id => { const v = $(id).value.trim(); return v ? parseFloat(v) : null; };
+    const hasShc = $("recHasShc").checked;
+    const payload = {
+      state: $("recState").value,
+      sowing_month: parseInt($("recMonth").value, 10),
+      irrigation_access: $("recIrrigation").value || null,
+      soil_texture: $("recSoil").value || null,
+      soil_ph: f("recPh"),
+      seasonal_rainfall_amount: f("recRain"),
+      temperature_mean: f("recTemp"),
+      relative_humidity: f("recHumidity"),
+      has_soil_test: hasShc,
+      nutrient_basis: hasShc ? "SHC_Available_kg_ha" : null,
+      soil_nitrogen: f("recN"),
+      soil_phosphorus: f("recP"),
+      soil_potassium: f("recK"),
+      language: currentLang,
+    };
+    try {
+      const resp = await fetch("/api/recommend-crop", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error || "Recommendation failed");
+      lastV2Result = data;
+      const recs = data.recommendations || [];
+      const diag = data.diagnostics || {};
+      $("recResultsBody").innerHTML = recs.length
+        ? recs.slice(0, 6).map(r => {
+            const rawScore = r.suitability_score != null ? r.suitability_score : (r.score_pct != null ? r.score_pct : r.liebig_score_pct);
+            const sc = rawScore != null ? Number(rawScore).toFixed(0) : "?";
+            const tier = parseFloat(sc) >= 70 ? "tier-high" : parseFloat(sc) >= 45 ? "tier-mid" : "";
+            const win = r.active_planting_window || {};
+            const seasonStr = win.broad_season ? `${win.broad_season}${win.sowing_date_range ? " (" + win.sowing_date_range + ")" : ""}` : r.season;
+            const yld = Array.isArray(r.expected_yield_range_t_ha) ? `${r.expected_yield_range_t_ha[0]}–${r.expected_yield_range_t_ha[1]} t/ha` : r.yield_per_hectare;
+            const det = [seasonStr && "Season: " + seasonStr, yld && "Yield: " + yld, r.evidence_confidence_tier && "Tier: " + r.evidence_confidence_tier].filter(Boolean).join(" · ");
+            const advItems = Array.isArray(r.agronomic_advisory) ? r.agronomic_advisory : (r.explanation ? [r.explanation] : []);
+            const fert = r.fertilizer_prescription || {};
+            const rdf = Array.isArray(fert.rdf_n_p2o5_k2o_kg_ha) ? `RDF N:P₂O₅:K₂O = ${fert.rdf_n_p2o5_k2o_kg_ha.join(" : ")} kg/ha` : "";
+            const comm = fert.commercial_products && Object.keys(fert.commercial_products).length
+              ? `Commercial Guide: ${Object.entries(fert.commercial_products).map(([k, v]) => `${k.replace(/_/g, " ")}: ${v}`).join(", ")}`
+              : "";
+            const fertSummary = [rdf, comm, fert.stoichiometric_notes].filter(Boolean).join(" — ");
+            return `<div class="rec-card"><div class="rec-header"><div class="rec-name">🌾 ${r.canonical_name || r.name || r.crop_name || r.crop_id || r.id}</div><div class="score-pill ${tier}">Score: ${sc}%</div></div>${det ? `<p style="font-size:0.83rem;color:var(--muted);">${det}</p>` : ""}${advItems.length ? `<ul style="font-size:0.86rem;margin:8px 0 0 18px;">${advItems.map(a => `<li>${a}</li>`).join("")}</ul>` : ""}${fertSummary ? `<p style="font-size:0.82rem;color:var(--forest-800);margin-top:8px;"><strong>Fertilizer:</strong> ${fertSummary}</p>` : ""}</div>`;
+          }).join("")
+        : `<p style='color:var(--muted)'>${diag.summary || diag.error || "No crops meet the specified conditions (or add Soil pH / Temperature / Humidity)."}</p>`;
+      show($("recResults"));
+    } catch (err) { showErr($("recError"), "⚠️ " + err.message); }
+  });
+
+  /* ── Fertilizer ── */
+  async function loadFertilizerGuide() {
+    hide($("fertError"));
+    const crop = $("fertCrop").value || "rice";
+    const area = parseFloat($("fertArea").value);
+    const unit = $("fertUnit").value;
+    const areaHa = unit === "acres" ? area * 0.404686 : area;
+    if (!crop || isNaN(areaHa) || areaHa <= 0) { showErr($("fertError"), "Please select a crop and enter a valid area."); return; }
+    try {
+      const resp = await fetch(`/api/fertilizer-guide?crop=${encodeURIComponent(crop)}&area_ha=${areaHa.toFixed(4)}&lang=${currentLang}`);
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error || "Failed");
+      const ui = (data.ui_labels && data.ui_labels.fert_ui) || {};
+      const disp = unit === "acres" ? (areaHa / 0.404686).toFixed(2) + " acres (" + areaHa.toFixed(2) + " ha)" : areaHa.toFixed(2) + " ha";
+      $("fertResultTitle").textContent = `💧 ${data.crop_name} — ${disp}`;
+      const sch = data.fertilizer_schedule || [];
+      const cp = data.crop_profile || {};
+      const profileHtml = cp.name ? `<div class="rec-card" style="margin-top:12px;"><strong>🌿 ${ui.climate_soil_guide || "Crop Soil & Irrigation Guide"}</strong><p style="font-size:0.85rem;margin-top:6px;"><strong>Irrigation:</strong> ${cp.irrigation || "—"}<br/><strong>Soil:</strong> ${cp.soilType || "—"} (pH ${cp.soilPH || "—"})<br/><strong>Climate:</strong> ${cp.climate || "—"}<br/><strong>Yield:</strong> ${cp.yieldPerHectare || "—"}</p></div>` : "";
+      $("fertResultsBody").innerHTML = sch.length
+        ? `<div class="table-wrap"><table><thead><tr><th>${ui.fertilizer || "Fertilizer"}</th><th>${ui.nutrients || "Nutrients"}</th><th>${ui.timing || "When to Apply"}</th><th>${ui.per_ha_rate || "Standard Rate"}</th><th>${ui.scaled_qty || "Scaled Dosage"}</th></tr></thead><tbody>${sch.map(s => `<tr><td><strong>${s.name}</strong></td><td>${Array.isArray(s.nutrients) ? s.nutrients.join(", ") : s.nutrients}</td><td>${s.applicationTime}</td><td>${s.base_dosage || "—"}</td><td><strong>${s.scaled_dosage || s.base_dosage}</strong></td></tr>`).join("")}</tbody></table></div>${profileHtml}<p class="disclaimer-box" style="margin-top:12px;">⚠️ ${ui.safety_note || data.safety_disclaimer || ""}</p>`
+        : "<p style='color:var(--muted)'>No fertilizer data found.</p>";
+      show($("fertResults"));
+    } catch (err) { showErr($("fertError"), "⚠️ " + err.message); }
+  }
+  $("fertSubmitBtn").addEventListener("click", loadFertilizerGuide);
+
+  /* ── Init ── */
+  loadHealth();
+})();
+</script>
+</body>
+</html>

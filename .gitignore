@@ -1,0 +1,20 @@
+# macOS & OS clutter
+.DS_Store
+
+# Python bytecode & virtual environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+executorch_env/
+
+# Runtime scan history & temporary files
+ps1_offline_assistant/data/field_scans.jsonl
+ps1_offline_assistant/data/*.db
+ps1_offline_assistant/data/*.sqlite*
+*.tmp
+*.log
+
+# Large quantized ExecuTorch LLM binary (~915.5 MB, exceeds GitHub 100 MB limit without Git LFS)
+*.pte
